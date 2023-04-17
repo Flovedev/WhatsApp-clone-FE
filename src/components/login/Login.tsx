@@ -39,7 +39,7 @@ const Login = () => {
     <div className="main-div">
       <div className="login-info">
         <h2>Login to WhatsApp on your computer</h2>
-          <Form>
+          <Form className="form-text">
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />

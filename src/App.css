@@ -1,8 +1,11 @@
-
-
 body {
   background-color: #111b21;
   color: #dcede3;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  color: black;
 }
 
 .green-div {
@@ -29,11 +32,16 @@ body {
   padding-left: 36px ;
 }
 
+.green-div span svg {
+  margin-right: 15px;
+}
+
 .main-div {
   background-color: #fff;
+  border-radius: 7px;
   margin-right: auto;
   margin-left: auto;
-  margin-top: 200px;
+  margin-top: 150px;
   width: 100%;
   z-index: 2;
   display: flex;
@@ -47,3 +55,29 @@ body {
   border: 1px solid #00a884;
   padding: 36px;
 }
+
+.login-info h2 {
+  font-size: 28px;
+  font-weight: 300;
+  line-height: normal;
+  color: #41525d;
+}
+
+.form-text {
+  font-size: 16px;
+  line-height: 24px;
+}
+
+button {
+  margin-right: 25px;
+}
+
+@media screen and (max-width: 780px) {
+html[dir] .vGm4z ._2K09Y {
+    margin-bottom: 28px;
+}
+
+@media screen and (max-width: 900px) {
+html[dir] ._2K09Y {
+    margin-bottom: 36px;
+}}}
