@@ -26,7 +26,6 @@
 }
 
 .main-div {
-  border: 1px solid red;
   background-color: #fff;
   margin-right: auto;
   margin-left: auto;
@@ -41,6 +40,6 @@
 }
 
 .login-info {
-  border: 1px solid green;
+  border: 1px solid #00a884;
   padding: 36px;
 }

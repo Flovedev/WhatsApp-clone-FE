@@ -1,5 +1,6 @@
 import { Container, Button, Form } from "react-bootstrap"
 import { useEffect, useState } from "react";
+import Registration from "../registration/Registration"
 
 const Login = () => {
 
@@ -58,7 +59,7 @@ const Login = () => {
               Login with OAuth
             </Button>
 
-            <Button variant="info">Register</Button>
+            <a href="Registration" >Register to WhatsApp</a>
           </Form>
       </div>
     </div>
