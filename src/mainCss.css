@@ -1,0 +1,47 @@
+.main-page {
+  background-color: #111b21;
+}
+
+.top-bars {
+  background-color: #202c33;
+}
+
+.top-input {
+  border: 0;
+  background-color: #202c33;
+}
+
+.top-images {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+}
+
+.chat-img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+}
+
+.top-icons {
+  width: 20px;
+  height: 20px;
+  color: #aebac1;
+}
+
+.top-search {
+  color: #aebac1;
+}
+
+.top-icons:hover {
+  cursor: pointer;
+}
+
+.single-chats > div {
+  border-top: 1px solid #202c33;
+}
+
+.single-chats:hover {
+  cursor: pointer;
+  background-color: #202c33;
+}
