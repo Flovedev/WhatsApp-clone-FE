@@ -59,7 +59,7 @@ const Login = () => {
               Login with OAuth
             </Button>
 
-            <a href="Registration" >Register to WhatsApp</a>
+            <a href="Registration">Register to WhatsApp</a>
           </Form>
       </div>
     </div>

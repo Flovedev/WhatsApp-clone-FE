@@ -1,5 +1,5 @@
-.App {
-  text-align: center;
+body {
+  background-color: black;
 }
 
 .green-div {
@@ -17,6 +17,7 @@
   font-size: 14px;
   font-weight: 500;
   margin-left: 200px;
+  margin-top: 80px;
   line-height: normal;
   color: #fff;
   text-transform: uppercase;
