@@ -4,8 +4,8 @@ import { Container, Row } from "react-bootstrap";
 
 const Main = () => {
   return (
-    <Container className="main-page">
-      <Row>
+    <Container fluid className="main-page px-5 pb-3 d-flex">
+      <Row className="flex-grow-1">
         <LeftBar />
         <ChatSection />
       </Row>

@@ -1,4 +1,4 @@
-import { Col, Form, FormControl, InputGroup } from "react-bootstrap";
+import { Col, FormControl, InputGroup } from "react-bootstrap";
 import { FaUserFriends } from "react-icons/fa";
 import { RiLoader3Line, RiMessage2Fill } from "react-icons/ri";
 import { SlOptionsVertical } from "react-icons/sl";
@@ -8,7 +8,7 @@ import SingleChat from "./SingleChat";
 
 const LeftBar = () => {
   return (
-    <Col>
+    <Col className="p-0">
       <div className="d-flex top-bars mt-3 align-items-center">
         <div className="flex-grow-1">
           <img
