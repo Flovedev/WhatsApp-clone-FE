@@ -1,6 +1,10 @@
 import { Container, Button, Form } from "react-bootstrap"
 import { useEffect, useState } from "react";
+import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Registration from "../registration/Registration"
+
+
 
 const Login = () => {
 
