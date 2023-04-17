@@ -11,7 +11,7 @@ const SingleChat = () => {
           <p className="mb-0">Pochita</p>
           <span>Last message!</span>
         </div>
-        <span className="mr-2">13:14</span>
+        <span className="mr-3">13:14</span>
       </div>
     </div>
   );

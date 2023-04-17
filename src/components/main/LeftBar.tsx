@@ -26,7 +26,7 @@ const LeftBar = () => {
         </div>
       </div>
       <div className="d-flex align-items-center">
-        <InputGroup className="my-2 mx-3 top-input-main">
+        <InputGroup className="my-2 ml-3 top-input-main">
           <InputGroup.Prepend>
             <InputGroup.Text className="top-input">
               <AiOutlineSearch className="top-search" />
@@ -37,7 +37,7 @@ const LeftBar = () => {
             className="top-input top-search"
           />
         </InputGroup>
-        <BsFilter className="top-icons m-1 mr-2" />
+        <BsFilter className="top-icons m-1 mx-3" />
       </div>
       <div>
         <SingleChat />

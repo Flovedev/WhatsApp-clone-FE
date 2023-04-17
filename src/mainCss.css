@@ -3,6 +3,11 @@
   height: 100vh;
 }
 
+.main-page span {
+  font-size: 12px;
+  color: #aebac1;
+}
+
 .top-bars {
   background-color: #202c33;
 }

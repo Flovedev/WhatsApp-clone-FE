@@ -4,7 +4,7 @@ const initialState = {
   userList: [],
 };
 
-const userReducer = (state = initialState, action) => {
+const userReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case GET_USERS:
       return {
