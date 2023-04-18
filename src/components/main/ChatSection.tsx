@@ -1,4 +1,4 @@
-import { Col, FormControl, ListGroup } from "react-bootstrap";
+import { Col, FormControl, Form, ListGroup } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import { SlOptionsVertical, SlEmotsmile } from "react-icons/sl";
 import { RiAttachment2 } from "react-icons/ri";
@@ -21,20 +21,20 @@ const ChatSection = () => {
     socket.on("welcome", (welcomeMessage) => {
       console.log(welcomeMessage);
 
-      socket.on("loggedIn", (onlineUsersList) => {
-        console.log(onlineUsersList);
-        setOnlineUsers(onlineUsersList);
-        setLoggedIn(true);
-      });
+      // socket.on("loggedIn", (onlineUsersList) => {
+      //   console.log(onlineUsersList);
+      //   setOnlineUsers(onlineUsersList);
+      //   setLoggedIn(true);
+      // });
 
-      socket.on("updateOnlineUsersList", (updatedList) => {
-        setOnlineUsers(updatedList);
-      });
+      // socket.on("updateOnlineUsersList", (updatedList) => {
+      //   setOnlineUsers(updatedList);
+      // });
 
-      socket.on("newMessage", (newMessage) => {
-        console.log(newMessage);
-        setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
-      });
+      // socket.on("newMessage", (newMessage) => {
+      //   console.log(newMessage);
+      //   setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
+      // });
     });
   }, []);
 
@@ -63,23 +63,52 @@ const ChatSection = () => {
           />
           <p className="mb-0">Pochita</p>
         </div>
-
         <div className="d-flex">
           <AiOutlineSearch className="top-icons m-1 mx-3" />
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
+      <ListGroup>
+        {onlineUsers.map((user: User) => (
+          <ListGroup.Item key={user.socketId}>{user.username}</ListGroup.Item>
+        ))}
+      </ListGroup>
       <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
-        {/* {chatHistory.map((message,index) => (<SingleMessage key={index}>))} */}
-        <SingleMessage />
+        {chatHistory.map((message, index) => (
+          <SingleMessage data={message} key={index} />
+        ))}
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
         <SlEmotsmile className="top-icons mx-2" />
         <RiAttachment2 className="top-icons mx-2" />
-        <FormControl
-          placeholder="Your message..."
-          className="top-input top-search"
-        />
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            sendMessage();
+          }}
+        >
+          <FormControl
+            placeholder="Your message..."
+            className="top-input top-search"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            disabled={!loggedIn}
+          />
+        </Form>
+        <Form
+          onSubmit={(e) => {
+            e.preventDefault();
+            submitUsername();
+          }}
+        >
+          <FormControl
+            placeholder="Login"
+            className="top-input top-search"
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+            disabled={loggedIn}
+          />
+        </Form>
         <BsFillMicFill className="top-icons mx-3" />
       </div>
     </Col>
