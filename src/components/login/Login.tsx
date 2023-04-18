@@ -4,7 +4,7 @@ import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Registration from "../registration/Registration";
 import GoogleButton from "react-google-button";
-import Example from "./SignInWithGoogle";
+// import Example from "./SignInWithGoogle";
 
 const Login = () => {
 
@@ -62,7 +62,7 @@ const Login = () => {
             <a className="login" href="/">Log In</a>
               <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
                 <GoogleButton className="sign-in-w-google" type="dark" disabled={false}
-                onClick={() => {Example()}}
+                // onClick={() => {Example()}}
                 >
                 </GoogleButton>
               </a>

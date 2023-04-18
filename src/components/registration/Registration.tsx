@@ -37,7 +37,7 @@ const Registration = () => {
 
                 <div className="btn-wrapper">
                     <a className="reg-btn" href="Registration">Register to WhatsApp</a>
-                    <a href={`${process.env.BE_URL}/users/googleLogin`}>
+                    <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
                       <GoogleButton className="sign-in-w-google" type="dark" disabled={false}
                       // onClick={() => {disabled={false}}}
                       >
