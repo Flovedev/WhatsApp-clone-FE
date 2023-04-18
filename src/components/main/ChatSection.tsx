@@ -8,7 +8,7 @@ import { useState, useEffect } from "react";
 import { Message, User } from "../../redux/types";
 import SingleMessage from "./SingleMesssage";
 
-const socket = io(process.env.BE_URL!, { transports: ["websocket"] });
+const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
   const [username, setUsername] = useState("");
@@ -21,20 +21,20 @@ const ChatSection = () => {
     socket.on("welcome", (welcomeMessage) => {
       console.log(welcomeMessage);
 
-      // socket.on("loggedIn", (onlineUsersList) => {
-      //   console.log(onlineUsersList);
-      //   setOnlineUsers(onlineUsersList);
-      //   setLoggedIn(true);
-      // });
+      socket.on("loggedIn", (onlineUsersList) => {
+        console.log(onlineUsersList);
+        setOnlineUsers(onlineUsersList);
+        setLoggedIn(true);
+      });
 
-      // socket.on("updateOnlineUsersList", (updatedList) => {
-      //   setOnlineUsers(updatedList);
-      // });
+      socket.on("updateOnlineUsersList", (updatedList) => {
+        setOnlineUsers(updatedList);
+      });
 
-      // socket.on("newMessage", (newMessage) => {
-      //   console.log(newMessage);
-      //   setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
-      // });
+      socket.on("newMessage", (newMessage) => {
+        console.log(newMessage);
+        setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
+      });
     });
   }, []);
 
