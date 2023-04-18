@@ -1,4 +1,5 @@
 import { Container, Form, Button } from "react-bootstrap";
+import GoogleButton from "react-google-button";
 
 const Registration = () => {
     return(
@@ -21,9 +22,6 @@ const Registration = () => {
                 <Form.Group controlId="formBasicEmail">
                   <Form.Label>Email address</Form.Label>
                   <Form.Control type="email" placeholder="Enter email" />
-                  <Form.Text className="text-muted">
-                    We'll never share your email with anyone else.
-                  </Form.Text>
                 </Form.Group>
     
                 <Form.Group controlId="formBasicPassword">
@@ -37,10 +35,15 @@ const Registration = () => {
                   return <Button key={user} variant="primary" type="submit"></Button>}},
                 </div>             */}
 
-                <Button variant="info">Register</Button>
-                <Button variant="primary" type="submit">
-                  Register with OAuth
-                </Button>
+                <div className="btn-wrapper">
+                    <a className="reg-btn" href="Registration">Register to WhatsApp</a>
+                    <a href={`${process.env.BE_URL}/users/googleLogin`}>
+                      <GoogleButton className="sign-in-w-google" type="dark" disabled={false}
+                      // onClick={() => {disabled={false}}}
+                      >
+                      </GoogleButton>
+                    </a>
+                </div>
     
               </Form>
           </div>

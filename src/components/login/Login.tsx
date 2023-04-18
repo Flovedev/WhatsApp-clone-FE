@@ -2,7 +2,8 @@ import { Container, Button, Form } from "react-bootstrap"
 import { useEffect, useState } from "react";
 import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import Registration from "../registration/Registration"
+import Registration from "../registration/Registration";
+import GoogleButton from "react-google-button";
 
 
 
@@ -43,9 +44,6 @@ const Login = () => {
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="Enter email" />
-              <Form.Text className="text-muted">
-                We'll never share your email with anyone else.
-              </Form.Text>
             </Form.Group>
 
             <Form.Group controlId="formBasicPassword">
@@ -53,17 +51,22 @@ const Login = () => {
               <Form.Control type="password" placeholder="Password" />
             </Form.Group>
 
-            {/* <div>
+            {/* <div> -- wrapp button in anchor tag ; href goes to endpoint in the backend; BE_URL=http://localhost:3001/ in .env; ${process.env.BE_URL}/users/googleLogin
             {userLogin.length > 0 &&
             userLogin.map((User) => {
               return <Button key={user} variant="primary" type="submit"></Button>}},
-            </div>             */}
+            </div>             */} 
 
-            <Button variant="primary" type="submit">
-              Login with OAuth
-            </Button>
-
-            <a href="Registration">Register to WhatsApp</a>
+            <div className="btn-wrapper">
+            <a className="login" href="/">Log In</a>
+              <a href={`${process.env.BE_URL}/users/googleLogin`}>
+                <GoogleButton className="sign-in-w-google" type="dark" disabled={false}
+                // onClick={() => {disabled={false}}}
+                >
+                </GoogleButton>
+              </a>
+              <a className="reg-to-wa" href="Registration">Register to WhatsApp</a>
+            </div>
           </Form>
       </div>
     </div>
