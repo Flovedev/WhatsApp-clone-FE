@@ -1,10 +1,57 @@
-import { Col, FormControl } from "react-bootstrap";
+import { Col, FormControl, ListGroup } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import { SlOptionsVertical, SlEmotsmile } from "react-icons/sl";
 import { RiAttachment2 } from "react-icons/ri";
 import { BsFillMicFill } from "react-icons/bs";
+import { io } from "socket.io-client";
+import { useState, useEffect } from "react";
+import { Message, User } from "../../redux/types";
+import SingleMessage from "./SingleMesssage";
+
+const socket = io(process.env.BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
+  const [username, setUsername] = useState("");
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const [message, setMessage] = useState("");
+  const [loggedIn, setLoggedIn] = useState(false);
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
+
+  useEffect(() => {
+    socket.on("welcome", (welcomeMessage) => {
+      console.log(welcomeMessage);
+
+      socket.on("loggedIn", (onlineUsersList) => {
+        console.log(onlineUsersList);
+        setOnlineUsers(onlineUsersList);
+        setLoggedIn(true);
+      });
+
+      socket.on("updateOnlineUsersList", (updatedList) => {
+        setOnlineUsers(updatedList);
+      });
+
+      socket.on("newMessage", (newMessage) => {
+        console.log(newMessage);
+        setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
+      });
+    });
+  }, []);
+
+  const submitUsername = () => {
+    socket.emit("setUsername", { username });
+  };
+
+  const sendMessage = () => {
+    const newMessage = {
+      sender: username,
+      text: message,
+      createdAt: new Date().toLocaleString("en-US"),
+    };
+    socket.emit("sendMessage", { message: newMessage });
+    setChatHistory([...chatHistory, newMessage]);
+  };
+
   return (
     <Col className="col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
       <div className="d-flex top-bars align-items-center">
@@ -22,7 +69,10 @@ const ChatSection = () => {
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
-      <div className="flex-grow-1 messages-section">Chat</div>
+      <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
+        {/* {chatHistory.map((message,index) => (<SingleMessage key={index}>))} */}
+        <SingleMessage />
+      </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
         <SlEmotsmile className="top-icons mx-2" />
         <RiAttachment2 className="top-icons mx-2" />

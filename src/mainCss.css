@@ -54,5 +54,19 @@
 }
 
 .messages-section {
+  max-height: 85vh;
+  overflow: auto;
   background-image: url("https://i.pinimg.com/originals/0a/75/5a/0a755a111030c39fca13d9fa38931f20.jpg");
+}
+
+.chat-message {
+  display: inline-block;
+  background-color: #202c33;
+  border-radius: 10px;
+}
+
+.chat-message-user {
+  display: inline-block;
+  background-color: #005c4b;
+  border-radius: 10px;
 }
