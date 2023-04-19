@@ -8,14 +8,15 @@ import SingleChat from "./SingleChat";
 
 
 interface IProps {
-  showUsersMenu: React.Dispatch<React.SetStateAction<boolean>>
+  showUsersMenu: React.Dispatch<React.SetStateAction<boolean>>,
+  showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const LeftBar = (props: IProps) => {
   return (
     <Col className="p-0 col-12 col-md-3">
       <div className="d-flex top-bars mt-3 align-items-center">
-        <div className="flex-grow-1">
+        <div onClick={() => props.showProfileMenu(true)} className="flex-grow-1 pointer-cursor">
           <img
             src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png"
             alt="trollface"
@@ -44,7 +45,7 @@ const LeftBar = (props: IProps) => {
         </InputGroup>
         <BsFilter className="top-icons top-filter m-1 mx-3" />
       </div>
-      <div className="single-chats-container">
+      <div className="single-chats-container overflow-auto-section">
         <SingleChat />
       </div>
     </Col>
