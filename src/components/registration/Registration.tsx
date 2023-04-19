@@ -29,12 +29,6 @@ const Registration = () => {
                   <Form.Control type="password" placeholder="Set your password" />
                 </Form.Group>
     
-                {/* <div>
-                {userLogin.length > 0 &&
-                userLogin.map((User) => {
-                  return <Button key={user} variant="primary" type="submit"></Button>}},
-                </div>             */}
-
                 <div className="btn-wrapper">
                     <a className="reg-btn" href="Registration">Register to WhatsApp</a>
                     <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
