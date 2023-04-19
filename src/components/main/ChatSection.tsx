@@ -21,29 +21,11 @@ const ChatSection = () => {
     //     console.log(welcomeMessage);
     //   });
 
-<<<<<<< Updated upstream
-      socket.on("loggedIn", (onlineUsersList) => {
-        console.log(onlineUsersList);
-        setOnlineUsers(onlineUsersList);
-        setLoggedIn(true);
-      });
-
-      socket.on("updateOnlineUsersList", (updatedList) => {
-        setOnlineUsers(updatedList);
-      });
-
-      socket.on("newMessage", (newMessage) => {
-        console.log(newMessage);
-        setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
-      });
-    });
-=======
     //   // socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
 
     //   socket.on("newMessage", newMessage => {
     //     setChatHistory((allMessages) => [...allMessages, newMessage.message])
     //   })
->>>>>>> Stashed changes
   }, []);
 
 
