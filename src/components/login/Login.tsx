@@ -6,6 +6,7 @@ import Registration from "../registration/Registration";
 import GoogleButton from "react-google-button";
 import { User } from "../../redux/interfaces/user";
 import { setCurrentUser } from "../../redux/actions";
+import { redirect } from "react-router";
 
 // import Example from "./SignInWithGoogle";
 
@@ -35,6 +36,7 @@ const Login = () => {
         console.log("current user: ", currentUser);
         localStorage.setItem("accessToken", currentUser.accessToken);
         dispatch(setCurrentUser(currentUser.user)) //saves user as "currentUser" into the store. We dispatch ACTIONS.
+        redirect(`${process.env.REACT_APP_FE_URL}/main`)
       }
     } catch (error) {
       console.log(error)
@@ -111,7 +113,7 @@ const Login = () => {
             </Form.Group>
 
             <div className="btn-wrapper">
-              <Button className="login" onClick={userLogin} >
+              <Button className="login" onClick={userLogin} href="/main" >
                 Log In
               </Button>
               <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
