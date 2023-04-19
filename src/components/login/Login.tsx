@@ -33,6 +33,7 @@ const Login = () => {
       if (res.ok) {
         const currentUser = await res.json();
         console.log("current user: ", currentUser);
+        localStorage.setItem("accessToken", currentUser.accessToken);
         dispatch(setCurrentUser(currentUser.user)) //saves user as "currentUser" into the store. We dispatch ACTIONS.
       }
     } catch (error) {
@@ -40,7 +41,7 @@ const Login = () => {
     }
   } 
 
-
+  //local storage: localStorage.setItem("myCat", "Tom"); const cat = localStorage.getItem("myCat"); localStorage.removeItem("myCat");
 
   // const getUser = async () => {
   //   try {
