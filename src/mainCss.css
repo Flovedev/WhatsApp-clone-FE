@@ -50,6 +50,11 @@
   cursor: pointer;
 }
 
+.single-chats,
+.single-user {
+  color: #d9dee0 !important;
+}
+
 .single-chats-container {
   margin-right: 5px;
 }

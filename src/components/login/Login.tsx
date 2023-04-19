@@ -92,7 +92,7 @@ const Login = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                  // onClick={() => {Example()}}
+                // onClick={() => {Example()}}
                 ></GoogleButton>
               </a>
               <a className="reg-to-wa" href="Registration">

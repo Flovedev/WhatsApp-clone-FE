@@ -48,7 +48,7 @@ const ChatSection = () => {
             alt="trollface"
             className="top-images my-2 mx-3"
           />
-          <p className="mb-0">Pochita</p>
+          <p className="mb-0" style={{ color: "#d9dee0" }}>Pochita</p>
         </div>
         <div className="d-flex">
           <AiOutlineSearch className="top-icons m-1 mx-3" />
