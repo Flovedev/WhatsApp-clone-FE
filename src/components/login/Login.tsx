@@ -17,6 +17,8 @@ const Login = () => {
       password: userPW,
     };
 
+    console.log("user cred: ", userCredentials)
+
     try {
       let res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/session`, {
@@ -103,7 +105,7 @@ const Login = () => {
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" />
+              <Form.Control type="password" placeholder="Password" value={userPW} onChange={(e) => setUserPW(e.target.value)} />
             </Form.Group>
 
             {/* <div> -- wrapp button in anchor tag; href goes to endpoint in the backend; BE_URL=http://localhost:3001/ in .env; ${process.env.BE_URL}/users/googleLogin
