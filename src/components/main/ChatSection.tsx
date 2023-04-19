@@ -6,21 +6,22 @@ import { BsFillMicFill } from "react-icons/bs";
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Message, User } from "../../redux/types";
-import SingleMessage from "./SingleMesssage";
+import SingleMessage from "./SingleMessage";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
-  const [username, setUsername] = useState("");
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const [message, setMessage] = useState("");
-  const [loggedIn, setLoggedIn] = useState(false);
+  // const [loggedIn, setLoggedIn] = useState(false);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
 
   useEffect(() => {
-    socket.on("welcome", (welcomeMessage) => {
-      console.log(welcomeMessage);
+    //   socket.on("welcome", (welcomeMessage) => {
+    //     console.log(welcomeMessage);
+    //   });
 
+<<<<<<< Updated upstream
       socket.on("loggedIn", (onlineUsersList) => {
         console.log(onlineUsersList);
         setOnlineUsers(onlineUsersList);
@@ -36,24 +37,28 @@ const ChatSection = () => {
         setChatHistory((chatHistory) => [...chatHistory, newMessage.message]);
       });
     });
+=======
+    //   // socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
+
+    //   socket.on("newMessage", newMessage => {
+    //     setChatHistory((allMessages) => [...allMessages, newMessage.message])
+    //   })
+>>>>>>> Stashed changes
   }, []);
 
-  const submitUsername = () => {
-    socket.emit("setUsername", { username });
-  };
 
-  const sendMessage = () => {
-    const newMessage = {
-      sender: username,
-      text: message,
-      createdAt: new Date().toLocaleString("en-US"),
-    };
-    socket.emit("sendMessage", { message: newMessage });
-    setChatHistory([...chatHistory, newMessage]);
-  };
+  // const sendMessage = () => {
+  //   const newMessage = {
+  //     sender: "username",
+  //     text: message,
+  //     createdAt: new Date().toLocaleString("en-US"),
+  //   };
+  //   socket.emit("sendMessage", { message: newMessage });
+  //   setChatHistory([...chatHistory, newMessage]);
+  // };
 
   return (
-    <Col className="col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
+    <Col className="col-12 col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
       <div className="d-flex top-bars align-items-center">
         <div className="flex-grow-1 d-flex align-items-center">
           <img
@@ -74,39 +79,25 @@ const ChatSection = () => {
         ))}
       </ListGroup>
       <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
-        {chatHistory.map((message, index) => (
+        {chatHistory.slice().reverse().map((message, index) => (
           <SingleMessage data={message} key={index} />
         ))}
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
         <SlEmotsmile className="top-icons mx-2" />
         <RiAttachment2 className="top-icons mx-2" />
-        <Form
+        <Form className="message-container"
           onSubmit={(e) => {
             e.preventDefault();
-            sendMessage();
+            // sendMessage();
+            // setMessage("")
           }}
         >
           <FormControl
             placeholder="Your message..."
-            className="top-input top-search"
+            className="top-input"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
-            disabled={!loggedIn}
-          />
-        </Form>
-        <Form
-          onSubmit={(e) => {
-            e.preventDefault();
-            submitUsername();
-          }}
-        >
-          <FormControl
-            placeholder="Login"
-            className="top-input top-search"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-            disabled={loggedIn}
           />
         </Form>
         <BsFillMicFill className="top-icons mx-3" />
