@@ -1,24 +1,25 @@
 import { Container, Button, Form, Modal } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
+// import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Registration from "../registration/Registration";
 import GoogleButton from "react-google-button";
 import { User } from "../../redux/interfaces/user";
+import { setCurrentUser } from "../../redux/actions";
+
 // import Example from "./SignInWithGoogle";
 
 const Login = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
 
+  const dispatch = useAppDispatch()
+
   const userLogin = async() => {
     const userCredentials = {
       email: userEmail,
       password: userPW,
     };
-
-    console.log("user cred: ", userCredentials)
-
     try {
       let res = await fetch(
         `${process.env.REACT_APP_BE_URL}/users/session`, {
@@ -30,8 +31,9 @@ const Login = () => {
         }
       );
       if (res.ok) {
-        const userTest = await res.json();
-        console.log("userTest: ", userTest)
+        const currentUser = await res.json();
+        console.log("current user: ", currentUser);
+        dispatch(setCurrentUser(currentUser.user)) //saves user as "currentUser" into the store. We dispatch ACTIONS.
       }
     } catch (error) {
       console.log(error)
