@@ -1,6 +1,7 @@
 import { User } from "../interfaces/user";
 
 export const SET_USER_INFO = "SET_USER_INFO";
+export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_CHATS = "GET_CHATS";
 
 export const setUserInfo = (user: User) => {
@@ -28,5 +29,12 @@ export const getChats = (userId: String) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const setCurrentUser = (currentUser: User) => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: currentUser,
   };
 };
