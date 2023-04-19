@@ -8,3 +8,4 @@ export const setUserInfo = (user: User) => {
         payload: { userInfo: user },
     }
 }
+

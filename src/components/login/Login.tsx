@@ -11,6 +11,34 @@ const Login = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
 
+  const userLogin = async() => {
+    const userCredentials = {
+      email: userEmail,
+      password: userPW,
+    };
+
+    try {
+      let res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/users/session`, {
+          method: "POST",
+          body: JSON.stringify(userCredentials),
+          headers: {
+            "Content-Type": "application/json"
+          }
+        }
+      );
+      if (res.ok) {
+        const userTest = await res.json();
+        console.log("userTest: ", userTest)
+      }
+
+    } catch (error) {
+      console.log(error)
+    }
+  } 
+
+
+
   // const getUser = async () => {
   //   try {
   //     let response = await fetch(
@@ -59,7 +87,8 @@ const Login = () => {
             className="form-text"
             onSubmit={(e) => {
               e.preventDefault();
-              //setUserLogin()
+              userLogin()
+              // setUserEmail()
             }}
           >
             <Form.Group controlId="formBasicEmail">
@@ -84,9 +113,9 @@ const Login = () => {
             </div>             */}
 
             <div className="btn-wrapper">
-              <a className="login" href="/">
+              <Button className="login" onClick={userLogin} >
                 Log In
-              </a>
+              </Button>
               <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
                 <GoogleButton
                   className="sign-in-w-google"
