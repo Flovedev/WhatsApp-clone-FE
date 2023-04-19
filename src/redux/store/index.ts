@@ -2,6 +2,7 @@ import Storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "../reducers/userReducer";
+import chatReducer from "../reducers/chatReducer";
 
 const persistConfig = {
   storage: Storage,
@@ -10,6 +11,7 @@ const persistConfig = {
 
 const combineReducer = combineReducers({
   users: userReducer,
+  chats: chatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combineReducer);

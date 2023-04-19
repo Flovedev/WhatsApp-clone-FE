@@ -1,4 +1,10 @@
-const SingleChat = () => {
+import { IChats } from "../../redux/interfaces/IChats";
+
+interface IProps {
+  data: IChats;
+}
+
+const SingleChat = (props: IProps) => {
   return (
     <>
       <div className="my-2 single-chats">
@@ -11,14 +17,13 @@ const SingleChat = () => {
           </div>
           <div className="d-flex flex-grow-1 ml-3 align-items-center">
             <div className="flex-grow-1 my-3">
-              <p className="mb-0">Pochita</p>
+              <p className="mb-0"></p>
               <span>Last message!</span>
             </div>
             <span className="mr-3">13:14</span>
           </div>
         </div>
       </div>
-
     </>
   );
 };
