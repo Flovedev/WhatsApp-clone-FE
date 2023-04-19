@@ -51,7 +51,8 @@
 }
 
 .single-chats,
-.single-user {
+.single-user,
+.profile-info {
   color: #d9dee0 !important;
 }
 
@@ -143,4 +144,48 @@ svg.top-search {
 svg.top-filter {
   width: 25px;
   height: 25px;
+}
+
+.big-image-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.big-image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-info {
+  padding: 0 27px;
+}
+
+.profile-title {
+  font-size: 14px;
+}
+
+.overflow-auto-section {
+  overflow: auto;
+  max-height: calc(100vh - 1rem - 154px);
+}
+
+/* SCROLLBARS */
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+::-webkit-scrollbar-track {
+  display: none;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(176, 175, 175);
 }

@@ -1,6 +1,5 @@
 const SingleUser = () => {
     return (
-
         <div className="my-2 single-user">
             <div className="d-flex align-items-center ml-3 my-2">
                 <div className="d-flex align-items-center justify-content-center img-container">
