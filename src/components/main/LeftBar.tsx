@@ -6,11 +6,17 @@ import { AiOutlineSearch } from "react-icons/ai";
 import { BsFilter } from "react-icons/bs";
 import SingleChat from "./SingleChat";
 
-const LeftBar = () => {
+
+interface IProps {
+  showUsersMenu: React.Dispatch<React.SetStateAction<boolean>>,
+  showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>
+}
+
+const LeftBar = (props: IProps) => {
   return (
-    <Col className="p-0">
+    <Col className="p-0 col-12 col-md-3">
       <div className="d-flex top-bars mt-3 align-items-center">
-        <div className="flex-grow-1">
+        <div onClick={() => props.showProfileMenu(true)} className="flex-grow-1 pointer-cursor">
           <img
             src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png"
             alt="trollface"
@@ -21,7 +27,7 @@ const LeftBar = () => {
         <div className="d-flex">
           <FaUserFriends className="top-icons m-1 mx-3" />
           <RiLoader3Line className="top-icons m-1 mx-3" />
-          <RiMessage2Fill className="top-icons m-1 mx-3" />
+          <RiMessage2Fill className="top-icons m-1 mx-3" onClick={() => props.showUsersMenu(true)} />
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
@@ -37,9 +43,9 @@ const LeftBar = () => {
             className="top-input top-search"
           />
         </InputGroup>
-        <BsFilter className="top-icons m-1 mx-3" />
+        <BsFilter className="top-icons top-filter m-1 mx-3" />
       </div>
-      <div>
+      <div className="single-chats-container overflow-auto-section">
         <SingleChat />
       </div>
     </Col>

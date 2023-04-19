@@ -1,12 +1,46 @@
-import { Col, FormControl } from "react-bootstrap";
+import { Col, FormControl, Form, ListGroup } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import { SlOptionsVertical, SlEmotsmile } from "react-icons/sl";
 import { RiAttachment2 } from "react-icons/ri";
 import { BsFillMicFill } from "react-icons/bs";
+import { io } from "socket.io-client";
+import { useState, useEffect } from "react";
+import { Message, User } from "../../redux/types";
+import SingleMessage from "./SingleMessage";
+
+const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
+  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const [message, setMessage] = useState("");
+  // const [loggedIn, setLoggedIn] = useState(false);
+  const [chatHistory, setChatHistory] = useState<Message[]>([]);
+
+  useEffect(() => {
+    //   socket.on("welcome", (welcomeMessage) => {
+    //     console.log(welcomeMessage);
+    //   });
+
+    //   // socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
+
+    //   socket.on("newMessage", newMessage => {
+    //     setChatHistory((allMessages) => [...allMessages, newMessage.message])
+    //   })
+  }, []);
+
+
+  // const sendMessage = () => {
+  //   const newMessage = {
+  //     sender: "username",
+  //     text: message,
+  //     createdAt: new Date().toLocaleString("en-US"),
+  //   };
+  //   socket.emit("sendMessage", { message: newMessage });
+  //   setChatHistory([...chatHistory, newMessage]);
+  // };
+
   return (
-    <Col className="col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
+    <Col className="col-12 col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
       <div className="d-flex top-bars align-items-center">
         <div className="flex-grow-1 d-flex align-items-center">
           <img
@@ -14,22 +48,40 @@ const ChatSection = () => {
             alt="trollface"
             className="top-images my-2 mx-3"
           />
-          <p className="mb-0">Pochita</p>
+          <p className="mb-0" style={{ color: "#d9dee0" }}>Pochita</p>
         </div>
-
         <div className="d-flex">
           <AiOutlineSearch className="top-icons m-1 mx-3" />
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
-      <div className="flex-grow-1 messages-section">Chat</div>
+      <ListGroup>
+        {onlineUsers.map((user: User) => (
+          <ListGroup.Item key={user.socketId}>{user.username}</ListGroup.Item>
+        ))}
+      </ListGroup>
+      <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
+        {chatHistory.slice().reverse().map((message, index) => (
+          <SingleMessage data={message} key={index} />
+        ))}
+      </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
         <SlEmotsmile className="top-icons mx-2" />
         <RiAttachment2 className="top-icons mx-2" />
-        <FormControl
-          placeholder="Your message..."
-          className="top-input top-search"
-        />
+        <Form className="message-container"
+          onSubmit={(e) => {
+            e.preventDefault();
+            // sendMessage();
+            // setMessage("")
+          }}
+        >
+          <FormControl
+            placeholder="Your message..."
+            className="top-input"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+          />
+        </Form>
         <BsFillMicFill className="top-icons mx-3" />
       </div>
     </Col>
