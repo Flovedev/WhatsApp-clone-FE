@@ -33,7 +33,6 @@ const Login = () => {
         const userTest = await res.json();
         console.log("userTest: ", userTest)
       }
-
     } catch (error) {
       console.log(error)
     }
@@ -107,12 +106,6 @@ const Login = () => {
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" value={userPW} onChange={(e) => setUserPW(e.target.value)} />
             </Form.Group>
-
-            {/* <div> -- wrapp button in anchor tag; href goes to endpoint in the backend; BE_URL=http://localhost:3001/ in .env; ${process.env.BE_URL}/users/googleLogin
-            {userLogin.length > 0 &&
-            userLogin.map((User) => {
-              return <Button key={user} variant="primary" type="submit"></Button>}},
-            </div>             */}
 
             <div className="btn-wrapper">
               <Button className="login" onClick={userLogin} >
