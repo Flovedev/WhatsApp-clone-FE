@@ -58,13 +58,14 @@ const ProfileMenu = (props: IProps) => {
         body: JSON.stringify(updatedUser),
         headers: {
           Authorization: `Bearer ${accessToken}`,
+          "Content-Type": "application/json",
         },
       });
       if (res.ok) {
-        //const updatedUser = await res.json();
-
-        dispatch(setCurrentUser({ ...currentUserInfo, updatedUser }));
-        // handleClose();
+        const response = await res.json();
+        console.log("response: ", response);
+        dispatch(setCurrentUser(response));
+        handleClose();
       }
     } catch (error) {
       console.log(error);
