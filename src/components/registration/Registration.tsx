@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-import { redirect } from "react-router";
+import { redirect, useNavigate } from "react-router";
 import { setCurrentUser } from "../../redux/actions";
 import { useAppDispatch } from "../../redux/hooks";
 
@@ -11,6 +11,7 @@ const Registration = () => {
   let [userName, setUserName] = useState("");
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate()
 
   const userRegistration = async () => {
     const userRegInfo = {
@@ -31,7 +32,7 @@ const Registration = () => {
         console.log("New User: ", newUser);
         localStorage.setItem("accessToken", newUser.accessToken);
         dispatch(setCurrentUser(newUser.user));
-        redirect(`${process.env.REACT_APP_FE_URL}/main`);
+        navigate("/main")
       }
     } catch (error) {
       console.log(error);
@@ -103,7 +104,6 @@ const Registration = () => {
               <Button
                 className="reg-btn"
                 onClick={userRegistration}
-                href="/main"
               >
                 Register to WhatsApp
               </Button>
@@ -112,7 +112,7 @@ const Registration = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                  // onClick={() => {disabled={false}}}
+                // onClick={() => {disabled={false}}}
                 ></GoogleButton>
               </a>
             </div>
