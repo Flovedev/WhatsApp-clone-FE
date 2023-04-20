@@ -41,7 +41,7 @@ const ChatSection = () => {
     const newMessage = {
       sender: currentUser,
       text: message,
-      createdAt: new Date().toLocaleString("en-US"),
+      createdAt: new Date().toLocaleString("en-GB"),
       chatId: currentChat._id,
     };
     socket.emit("sendMessage", { message: newMessage });
