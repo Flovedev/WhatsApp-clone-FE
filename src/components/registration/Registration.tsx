@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button, Container, Form } from "react-bootstrap";
 import GoogleButton from "react-google-button";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 import { setCurrentUser } from "../../redux/actions";
 import { useAppDispatch } from "../../redux/hooks";
 
@@ -9,15 +9,17 @@ const Registration = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
   let [userName, setUserName] = useState("");
+  let [userInfo, setUserInfo] = useState("");
 
   const dispatch = useAppDispatch();
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const userRegistration = async () => {
     const userRegInfo = {
       email: userEmail,
       password: userPW,
       username: userName,
+      info: userInfo,
     };
     try {
       let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/account`, {
@@ -32,7 +34,7 @@ const Registration = () => {
         console.log("New User: ", newUser);
         localStorage.setItem("accessToken", newUser.accessToken);
         dispatch(setCurrentUser(newUser.user));
-        navigate("/main")
+        navigate("/main");
       }
     } catch (error) {
       console.log(error);
@@ -80,6 +82,16 @@ const Registration = () => {
               />
             </Form.Group>
 
+            <Form.Group controlId="formBasicInfo">
+              <Form.Label>Info</Form.Label>
+              <Form.Control
+                type="info"
+                placeholder="Set your info"
+                value={userInfo}
+                onChange={(e) => setUserInfo(e.target.value)}
+              />
+            </Form.Group>
+
             <Form.Group controlId="formBasicEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control
@@ -101,10 +113,7 @@ const Registration = () => {
             </Form.Group>
 
             <div className="btn-wrapper">
-              <Button
-                className="reg-btn"
-                onClick={userRegistration}
-              >
+              <Button className="reg-btn" onClick={userRegistration}>
                 Register to WhatsApp
               </Button>
               <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
@@ -112,7 +121,7 @@ const Registration = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                // onClick={() => {disabled={false}}}
+                  // onClick={() => {disabled={false}}}
                 ></GoogleButton>
               </a>
             </div>
