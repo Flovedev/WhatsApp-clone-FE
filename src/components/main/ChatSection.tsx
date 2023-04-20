@@ -9,6 +9,7 @@ import { Message, User } from "../../redux/types";
 import SingleMessage from "./SingleMessage";
 import { useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
+import { current } from "@reduxjs/toolkit";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
@@ -18,29 +19,34 @@ const ChatSection = () => {
   let otherUser = currentChat?.members?.filter(
     (user: IUser) => !(user._id === currentUser._id)
   );
-  // console.log(currentChat);
 
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const [message, setMessage] = useState("");
   // const [loggedIn, setLoggedIn] = useState(false);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
+  // const [chatHistory, setChatHistory] = currentChat?.messages;
+
+  // console.log("this", currentChat.messages);
 
   useEffect(() => {
     socket.on("welcome", (welcomeMessage) => {
       console.log(welcomeMessage);
     });
-    socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
+    socket.emit("joinRoom", "room");
     socket.on("newMessage", (newMessage) => {
-      setChatHistory((allMessages) => [...allMessages, newMessage.message]);
+      setChatHistory((allMessages: any) => [
+        ...allMessages,
+        newMessage.message,
+      ]);
     });
-  }, [currentChat]);
+  }, []);
 
   const sendMessage = () => {
     const newMessage = {
       sender: currentUser,
       text: message,
       createdAt: new Date().toLocaleString("en-US"),
-      chatId: "643eb5d96f5a618a067379d7",
+      chatId: currentChat._id,
     };
     socket.emit("sendMessage", { message: newMessage });
     setChatHistory([...chatHistory, newMessage]);
@@ -70,18 +76,23 @@ const ChatSection = () => {
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
-      <ListGroup>
-        {onlineUsers.map((user: User) => (
-          <ListGroup.Item key={user.socketId}>{user.username}</ListGroup.Item>
-        ))}
-      </ListGroup>
       <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
-        {chatHistory
+        <>
+          {/* {currentChat.messages
           .slice()
           .reverse()
-          .map((message, index) => (
+          .map((message: any, index: number) => (
             <SingleMessage data={message} key={index} />
-          ))}
+          ))} */}
+
+          {/* {chatHistory
+            .slice()
+            .reverse()
+            .map((message: any, index: number) => (
+              <SingleMessage data={message} key={index} />
+            ))} */}
+          {console.log("this")}
+        </>
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
         <SlEmotsmile className="top-icons mx-2" />

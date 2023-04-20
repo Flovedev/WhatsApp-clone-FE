@@ -1,6 +1,9 @@
 import { IChats } from "../../redux/interfaces/IChats";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getChatHistory } from "../../redux/actions";
+import { io } from "socket.io-client";
+
+const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 interface IProps {
   data: IChats;
