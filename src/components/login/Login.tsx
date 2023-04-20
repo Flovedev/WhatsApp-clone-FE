@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import Registration from "../registration/Registration";
 import GoogleButton from "react-google-button";
-import { User } from "../../redux/interfaces/user";
+import { IUser } from "../../redux/interfaces/IUser";
 import { setCurrentUser } from "../../redux/actions";
 import { redirect } from "react-router";
 
@@ -14,34 +14,32 @@ const Login = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
-  const userLogin = async() => {
+  const userLogin = async () => {
     const userCredentials = {
       email: userEmail,
       password: userPW,
     };
     try {
-      let res = await fetch(
-        `${process.env.REACT_APP_BE_URL}/users/session`, {
-          method: "POST",
-          body: JSON.stringify(userCredentials),
-          headers: {
-            "Content-Type": "application/json"
-          }
-        }
-      );
+      let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/session`, {
+        method: "POST",
+        body: JSON.stringify(userCredentials),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
       if (res.ok) {
         const currentUser = await res.json();
         console.log("current user: ", currentUser);
         localStorage.setItem("accessToken", currentUser.accessToken);
-        dispatch(setCurrentUser(currentUser.user)) //saves user as "currentUser" into the store. We dispatch ACTIONS.
-        redirect(`${process.env.REACT_APP_FE_URL}/main`)
+        dispatch(setCurrentUser(currentUser.user)); //saves user as "currentUser" into the store. We dispatch ACTIONS.
+        redirect(`${process.env.REACT_APP_FE_URL}/main`);
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  } 
+  };
 
   //local storage: localStorage.setItem("myCat", "Tom"); const cat = localStorage.getItem("myCat"); localStorage.removeItem("myCat");
 
@@ -93,7 +91,7 @@ const Login = () => {
             className="form-text"
             onSubmit={(e) => {
               e.preventDefault();
-              userLogin()
+              userLogin();
               // setUserEmail()
             }}
           >
@@ -109,11 +107,16 @@ const Login = () => {
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={userPW} onChange={(e) => setUserPW(e.target.value)} />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={userPW}
+                onChange={(e) => setUserPW(e.target.value)}
+              />
             </Form.Group>
 
             <div className="btn-wrapper">
-              <Button className="login" onClick={userLogin} href="/main" >
+              <Button className="login" onClick={userLogin} href="/main">
                 Log In
               </Button>
               <a href={`${process.env.REACT_APP_BE_URL}/users/googleLogin`}>
@@ -121,7 +124,7 @@ const Login = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                // onClick={() => {Example()}}
+                  // onClick={() => {Example()}}
                 ></GoogleButton>
               </a>
               <a className="reg-to-wa" href="Registration">

@@ -18,7 +18,7 @@ interface IProps {
 const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
   let chats = useAppSelector((state) => state.chats.allChats);
-  console.log(chats);
+
   useEffect(() => {
     dispatch(getChats("643d6d724241c52f1fc63103"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
