@@ -14,7 +14,7 @@ const Login = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
 
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
   const navigate = useNavigate()
 
   const userLogin = async () => {
@@ -40,7 +40,7 @@ const Login = () => {
         navigate("/main")
       }
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   }
 
@@ -94,7 +94,7 @@ const Login = () => {
             className="form-text"
             onSubmit={(e) => {
               e.preventDefault();
-              userLogin()
+              userLogin();
               // setUserEmail()
             }}
           >
@@ -110,7 +110,12 @@ const Login = () => {
 
             <Form.Group controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
-              <Form.Control type="password" placeholder="Password" value={userPW} onChange={(e) => setUserPW(e.target.value)} />
+              <Form.Control
+                type="password"
+                placeholder="Password"
+                value={userPW}
+                onChange={(e) => setUserPW(e.target.value)}
+              />
             </Form.Group>
 
             <div className="btn-wrapper">
