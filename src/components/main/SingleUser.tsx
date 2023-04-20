@@ -1,19 +1,20 @@
 import { createChat } from "../../redux/actions";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
 
 interface IProps {
   data: IUser;
-  //   hideUsers: React.Dispatch<React.SetStateAction<boolean>>;
+  hideUsers: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const SingleUser = (props: IProps) => {
+  let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   const dispatch = useAppDispatch();
-  const currentUser = "643d6d724241c52f1fc63103";
-  const bothUsers = { members: [props.data._id, currentUser] };
+  const bothUsers = { members: [props.data._id, currentUser._id] };
 
   const handleChats = () => {
-    dispatch(createChat(bothUsers, currentUser));
+    dispatch(createChat(bothUsers, currentUser._id));
+    props.hideUsers(false);
   };
 
   return (

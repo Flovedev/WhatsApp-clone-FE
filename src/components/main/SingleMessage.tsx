@@ -1,26 +1,28 @@
-import { Message } from "../../redux/types";
+import { useAppSelector } from "../../redux/hooks";
 
 interface IProps {
-  data: Message;
+  data: any;
 }
 
 const SingleMessage = (props: IProps) => {
+  let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   return (
     <>
-      <div className="d-flex flex-row-reverse pr-5">
-        <div className="chat-message-user mb-1 mx-5 p-1">
-          <p className="mb-0 mx-2">{props.data.sender}</p>
-          <p className="mb-0 mx-2">{props.data.text}</p>
-          <span className="mx-2 float-right">{props.data.createdAt}</span>
+      {props.data.sender._id === currentUser._id ? (
+        <div className="d-flex flex-row-reverse pr-5">
+          <div className="chat-message-user mb-1 mx-5 p-1">
+            <p className="mb-0 mx-2">{props.data.text}</p>
+            <span className="mx-2 float-right">{props.data.createdAt}</span>
+          </div>
         </div>
-      </div>
-
-      {/* <div className="pl-5">
-        <div className="chat-message mb-1 mx-5 p-1">
-          <p className="mb-0 mx-2">Recieved message</p>
-          <span className="mx-2 float-right">12:14</span>
+      ) : (
+        <div className="pl-5">
+          <div className="chat-message mb-1 mx-5 p-1">
+            <p className="mb-0 mx-2">{props.data.text}</p>
+            <span className="mx-2 float-right">{props.data.createdAt}</span>
+          </div>
         </div>
-      </div> */}
+      )}
     </>
   );
 };

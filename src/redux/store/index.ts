@@ -4,6 +4,8 @@ import { persistStore, persistReducer } from "redux-persist";
 import userReducer from "../reducers/userReducer";
 import currentUserReducer from "../reducers/currentUserReducer";
 import chatReducer from "../reducers/chatReducer";
+import currentChatReducer from "../reducers/currentChat";
+import liveChatReducer from "../reducers/liveChatReducer";
 
 const persistConfig = {
   storage: Storage,
@@ -14,6 +16,8 @@ const combinedReducer = combineReducers({
   users: userReducer,
   currentUser: currentUserReducer,
   chats: chatReducer,
+  currentChat: currentChatReducer,
+  liveChat: liveChatReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);
