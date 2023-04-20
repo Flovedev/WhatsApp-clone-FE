@@ -1,5 +1,4 @@
 import { useAppSelector } from "../../redux/hooks";
-import { Message } from "../../redux/types";
 
 interface IProps {
   data: any;

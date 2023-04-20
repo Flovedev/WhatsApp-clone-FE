@@ -26,7 +26,8 @@ const ChatSection = () => {
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
   // const [chatHistory, setChatHistory] = currentChat?.messages;
 
-  // console.log("this", currentChat.messages);
+  console.log("currentchat", currentChat.messages);
+  console.log("chathistory", chatHistory);
 
   useEffect(() => {
     socket.on("welcome", (welcomeMessage) => {
@@ -76,22 +77,22 @@ const ChatSection = () => {
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
-      <div className="messages-section flex-grow-1 d-flex flex-column-reverse ">
+      <div className="messages-section flex-grow-1 d-flex flex-column">
         <>
-          {/* {currentChat.messages
-          .slice()
-          .reverse()
-          .map((message: any, index: number) => (
-            <SingleMessage data={message} key={index} />
-          ))} */}
-
-          {/* {chatHistory
+          {currentChat.messages
             .slice()
-            .reverse()
+
             .map((message: any, index: number) => (
               <SingleMessage data={message} key={index} />
-            ))} */}
-          {console.log("this")}
+            ))}
+
+          {chatHistory
+            .slice()
+
+            .map((message: any, index: number) => (
+              <SingleMessage data={message} key={index} />
+            ))}
+          {/* {console.log("this")} */}
         </>
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">

@@ -1,9 +1,6 @@
 import { IChats } from "../../redux/interfaces/IChats";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getChatHistory } from "../../redux/actions";
-import { io } from "socket.io-client";
-
-const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 interface IProps {
   data: IChats;
@@ -20,10 +17,6 @@ const SingleChat = (props: IProps) => {
   const handleChats = (chatId: string) => {
     dispatch(getChatHistory(chatId));
   };
-
-  //TODO with rooms working
-  // const lastMessage = props.data.messages.map((message) => message);
-  // console.log(lastMessage);
 
   return (
     <div
