@@ -5,20 +5,20 @@ import { Form } from "react-bootstrap";
 import { setCurrentUser } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useState } from "react";
-import { async } from "q";
+import { current } from "immer";
 
 interface IProps {
   showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const ProfileMenu = (props: IProps) => {
-  const [newUsername, setNewUsername] = useState("");
-  const [newInfo, setNewInfo] = useState("");
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
   let currentUserInfo = useAppSelector(
     (state) => state.currentUser.currentUser
   );
+  const [newUsername, setNewUsername] = useState(currentUserInfo.username);
+  const [newInfo, setNewInfo] = useState(currentUserInfo.info);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [show, setShow] = useState(false);
 
   const handleClose = () => setShow(false);
@@ -47,15 +47,25 @@ const ProfileMenu = (props: IProps) => {
   };
 
   const updateUserInfo = async () => {
-    const updatedUser = {};
+    const updatedUser = {
+      username: newUsername,
+      info: newInfo,
+    };
+    console.log(updatedUser);
     try {
-      // let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/me/avatar`, {
-      //     method: "PUT",
-      //     body: updatedUser,
-      //     headers: {
-      //       Authorization: `Bearer ${accessToken}`,
-      //     },
-      handleClose();
+      let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
+        method: "PUT",
+        body: JSON.stringify(updatedUser),
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (res.ok) {
+        //const updatedUser = await res.json();
+
+        dispatch(setCurrentUser({ ...currentUserInfo, updatedUser }));
+        // handleClose();
+      }
     } catch (error) {
       console.log(error);
     }
@@ -84,11 +94,17 @@ const ProfileMenu = (props: IProps) => {
           <Form>
             <Form.Group>
               <Form.Label>Choose your new username:</Form.Label>
-              <Form.Control value={currentUserInfo.username} />
+              <Form.Control
+                value={newUsername}
+                onChange={(e) => setNewUsername(e.target.value)}
+              />
             </Form.Group>
             <Form.Group>
               <Form.Label>Choose your new description:</Form.Label>
-              <Form.Control placeholder={currentUserInfo.info} />
+              <Form.Control
+                value={newInfo}
+                onChange={(e) => setNewInfo(e.target.value)}
+              />
             </Form.Group>
           </Form>
         </Modal.Body>
