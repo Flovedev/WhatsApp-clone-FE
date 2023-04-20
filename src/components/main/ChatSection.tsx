@@ -7,27 +7,22 @@ import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Message, User } from "../../redux/types";
 import SingleMessage from "./SingleMessage";
-import { useAppSelector } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
-import { current } from "@reduxjs/toolkit";
+import { SET_LIVE_CHAT } from "../../redux/actions";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
   let currentChat = useAppSelector((state) => state.currentChat.chat);
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
+  let livechat = useAppSelector((state) => state.liveChat.liveChat);
   let otherUser = currentChat?.members?.filter(
     (user: IUser) => !(user._id === currentUser._id)
   );
 
-  const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
+  const dispatch = useAppDispatch();
   const [message, setMessage] = useState("");
-  // const [loggedIn, setLoggedIn] = useState(false);
-  const [chatHistory, setChatHistory] = useState<Message[]>([]);
-  // const [chatHistory, setChatHistory] = currentChat?.messages;
-
-  console.log("currentchat", currentChat.messages);
-  console.log("chathistory", chatHistory);
 
   useEffect(() => {
     socket.on("welcome", (welcomeMessage) => {
@@ -35,10 +30,10 @@ const ChatSection = () => {
     });
     socket.emit("joinRoom", "room");
     socket.on("newMessage", (newMessage) => {
-      setChatHistory((allMessages: any) => [
-        ...allMessages,
-        newMessage.message,
-      ]);
+      dispatch({
+        type: SET_LIVE_CHAT,
+        payload: newMessage.message,
+      });
     });
   }, []);
 
@@ -50,7 +45,10 @@ const ChatSection = () => {
       chatId: currentChat._id,
     };
     socket.emit("sendMessage", { message: newMessage });
-    setChatHistory([...chatHistory, newMessage]);
+    dispatch({
+      type: SET_LIVE_CHAT,
+      payload: newMessage,
+    });
   };
 
   return (
@@ -86,13 +84,12 @@ const ChatSection = () => {
               <SingleMessage data={message} key={index} />
             ))}
 
-          {chatHistory
+          {livechat
             .slice()
 
             .map((message: any, index: number) => (
               <SingleMessage data={message} key={index} />
             ))}
-          {/* {console.log("this")} */}
         </>
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">

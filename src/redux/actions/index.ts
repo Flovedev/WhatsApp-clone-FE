@@ -1,10 +1,11 @@
-import { current } from "@reduxjs/toolkit";
 import { IUser } from "../interfaces/IUser";
 
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_CHATS = "GET_CHATS";
 export const GET_CHAT_HISTORY = "GET_CHAT_HISTORY";
+export const SET_LIVE_CHAT = "SET_LIVE_CHAT";
+export const CLEAN_LIVE_CHAT = "CLEAN_LIVE_CHAT";
 
 export const setUserInfo = (user: IUser) => {
   return {

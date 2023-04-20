@@ -1,6 +1,6 @@
 import { IChats } from "../../redux/interfaces/IChats";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import { getChatHistory } from "../../redux/actions";
+import { CLEAN_LIVE_CHAT, getChatHistory } from "../../redux/actions";
 
 interface IProps {
   data: IChats;
@@ -16,6 +16,7 @@ const SingleChat = (props: IProps) => {
 
   const handleChats = (chatId: string) => {
     dispatch(getChatHistory(chatId));
+    dispatch({ type: CLEAN_LIVE_CHAT, payload: [] });
   };
 
   return (
