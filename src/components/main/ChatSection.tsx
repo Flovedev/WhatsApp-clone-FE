@@ -77,19 +77,13 @@ const ChatSection = () => {
       </div>
       <div className="messages-section flex-grow-1 d-flex flex-column">
         <>
-          {currentChat.messages
-            .slice()
+          {currentChat?.messages?.map((message: any, index: number) => (
+            <SingleMessage data={message} key={index} />
+          ))}
 
-            .map((message: any, index: number) => (
-              <SingleMessage data={message} key={index} />
-            ))}
-
-          {livechat
-            .slice()
-
-            .map((message: any, index: number) => (
-              <SingleMessage data={message} key={index} />
-            ))}
+          {livechat?.map((message: any, index: number) => (
+            <SingleMessage data={message} key={index} />
+          ))}
         </>
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">
