@@ -1,8 +1,10 @@
 import { Col } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router";
+import { Form } from "react-bootstrap";
 import { setCurrentUser } from "../../redux/actions";
-import { useAppDispatch } from "../../redux/hooks";
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { useState } from "react";
 
 interface IProps {
   showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>;
@@ -11,6 +13,9 @@ interface IProps {
 const ProfileMenu = (props: IProps) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  let currentUserInfo = useAppSelector(
+    (state) => state.currentUser.currentUser
+  );
 
   const logout = async () => {
     const emptyUser = {
@@ -22,8 +27,9 @@ const ProfileMenu = (props: IProps) => {
     };
     localStorage.removeItem("accessToken");
     dispatch(setCurrentUser(emptyUser));
-    //2. removing currentUser from store
+    navigate("/");
   };
+
   return (
     <Col className="col-12 col-md-3 mt-3 p-0">
       <div className="d-flex new-chat-section align-items-end">
@@ -53,36 +59,40 @@ const ProfileMenu = (props: IProps) => {
       </div>
       <div className="d-flex justify-content-center align-items-center my-4">
         <div className="big-image-container">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png"
-            alt="trollface"
-          />
+          <img src={currentUserInfo.avatar} alt="trollface" />
         </div>
       </div>
-      <div className="profile-info">
+      <div
+        className="profile-info"
+        onSubmit={(e) => {
+          e.preventDefault();
+        }}
+      >
         <div className="my-2">
-          <p className="contacts-text profile-title">Your name</p>
+          <div className="contacts-text profile-title">Your name</div>
           <div className="d-flex justify-content-between">
-            <div>Username</div>
-            <div>
-              <svg
-                className="pointer-cursor"
-                viewBox="0 0 24 24"
-                height="24"
-                width="24"
-                preserveAspectRatio="xMidYMid meet"
-                version="1.1"
-                x="0px"
-                y="0px"
-                enable-background="new 0 0 24 24"
-                xmlSpace="preserve"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3.95,16.7v3.4h3.4l9.8-9.9l-3.4-3.4L3.95,16.7z M19.75,7.6c0.4-0.4,0.4-0.9,0-1.3 l-2.1-2.1c-0.4-0.4-0.9-0.4-1.3,0l-1.6,1.6l3.4,3.4L19.75,7.6z"
-                ></path>
-              </svg>
-            </div>
+            <p className="userNameFormInput"> {currentUserInfo.username}</p>
+            <button className="updateButton">
+              <div>
+                <svg
+                  className="pointer-cursor"
+                  viewBox="0 0 24 24"
+                  height="24"
+                  width="24"
+                  preserveAspectRatio="xMidYMid meet"
+                  version="1.1"
+                  x="0px"
+                  y="0px"
+                  enable-background="new 0 0 24 24"
+                  xmlSpace="preserve"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M3.95,16.7v3.4h3.4l9.8-9.9l-3.4-3.4L3.95,16.7z M19.75,7.6c0.4-0.4,0.4-0.9,0-1.3 l-2.1-2.1c-0.4-0.4-0.9-0.4-1.3,0l-1.6,1.6l3.4,3.4L19.75,7.6z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
           </div>
         </div>
         <div className="my-4 profile-title">
@@ -90,28 +100,30 @@ const ProfileMenu = (props: IProps) => {
           WhatsApp contacts.
         </div>
         <div className="my-2">
-          <p className="contacts-text profile-title">Info</p>
+          <div className="contacts-text profile-title">Info</div>
           <div className="d-flex justify-content-between">
-            <div>Info/Bio</div>
-            <div>
-              <svg
-                className="pointer-cursor"
-                viewBox="0 0 24 24"
-                height="24"
-                width="24"
-                preserveAspectRatio="xMidYMid meet"
-                version="1.1"
-                x="0px"
-                y="0px"
-                enable-background="new 0 0 24 24"
-                xmlSpace="preserve"
-              >
-                <path
-                  fill="currentColor"
-                  d="M3.95,16.7v3.4h3.4l9.8-9.9l-3.4-3.4L3.95,16.7z M19.75,7.6c0.4-0.4,0.4-0.9,0-1.3 l-2.1-2.1c-0.4-0.4-0.9-0.4-1.3,0l-1.6,1.6l3.4,3.4L19.75,7.6z"
-                ></path>
-              </svg>
-            </div>
+            <p className="userInfoFormInput">{currentUserInfo.info}</p>
+            <button className="updateButton">
+              <div>
+                <svg
+                  className="pointer-cursor"
+                  viewBox="0 0 24 24"
+                  height="24"
+                  width="24"
+                  preserveAspectRatio="xMidYMid meet"
+                  version="1.1"
+                  x="0px"
+                  y="0px"
+                  enable-background="new 0 0 24 24"
+                  xmlSpace="preserve"
+                >
+                  <path
+                    fill="currentColor"
+                    d="M3.95,16.7v3.4h3.4l9.8-9.9l-3.4-3.4L3.95,16.7z M19.75,7.6c0.4-0.4,0.4-0.9,0-1.3 l-2.1-2.1c-0.4-0.4-0.9-0.4-1.3,0l-1.6,1.6l3.4,3.4L19.75,7.6z"
+                  ></path>
+                </svg>
+              </div>
+            </button>
           </div>
         </div>
         <div className="my-2">

@@ -9,7 +9,6 @@ const Registration = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
   let [userName, setUserName] = useState("");
-  let [userInfo, setUserInfo] = useState("");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -19,7 +18,6 @@ const Registration = () => {
       email: userEmail,
       password: userPW,
       username: userName,
-      info: userInfo,
     };
     try {
       let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/account`, {
@@ -79,16 +77,6 @@ const Registration = () => {
                 placeholder="Set your username"
                 value={userName}
                 onChange={(e) => setUserName(e.target.value)}
-              />
-            </Form.Group>
-
-            <Form.Group controlId="formBasicInfo">
-              <Form.Label>Info</Form.Label>
-              <Form.Control
-                type="info"
-                placeholder="Set your info"
-                value={userInfo}
-                onChange={(e) => setUserInfo(e.target.value)}
               />
             </Form.Group>
 
