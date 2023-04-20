@@ -5,6 +5,7 @@ import { Form } from "react-bootstrap";
 import { setCurrentUser } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useState } from "react";
+import { async } from "q";
 
 interface IProps {
   showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>;
@@ -17,7 +18,30 @@ const ProfileMenu = (props: IProps) => {
     (state) => state.currentUser.currentUser
   );
 
-  const logout = async () => {
+  const changeAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    const accessToken = localStorage.getItem("accessToken");
+    try {
+      const file = event.target.files?.[0];
+      const formData = new FormData();
+      formData.append("avatar", file!);
+      let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/me/avatar`, {
+        method: "POST",
+        body: formData,
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      if (res.ok) {
+        const updatedUser = await res.json();
+        console.log(updatedUser);
+        dispatch(setCurrentUser(updatedUser.user));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const logout = () => {
     const emptyUser = {
       _id: "",
       username: "",
@@ -57,11 +81,13 @@ const ProfileMenu = (props: IProps) => {
           </h5>
         </div>
       </div>
+
       <div className="d-flex justify-content-center align-items-center my-4">
         <div className="big-image-container">
-          <img src={currentUserInfo.avatar} alt="trollface" />
+          <img src={currentUserInfo.avatar} alt="avatar" />
         </div>
       </div>
+      <input type="file" onChange={changeAvatar} />
       <div
         className="profile-info"
         onSubmit={(e) => {
