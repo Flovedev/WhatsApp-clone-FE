@@ -151,7 +151,7 @@ const UsersMenu = (props: IProps) => {
                   <SingleUser
                     data={e}
                     key={i}
-                    // hideUsers={props.showUsersMenu}
+                    hideUsers={props.showUsersMenu}
                   />
                 );
               })}

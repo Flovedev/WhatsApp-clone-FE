@@ -7,49 +7,64 @@ import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
 import { Message, User } from "../../redux/types";
 import SingleMessage from "./SingleMessage";
+import { useAppSelector } from "../../redux/hooks";
+import { IUser } from "../../redux/interfaces/IUser";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
 const ChatSection = () => {
+  let currentChat = useAppSelector((state) => state.currentChat.chat);
+  let currentUser = useAppSelector((state) => state.currentUser.currentUser);
+  let otherUser = currentChat?.members?.filter(
+    (user: IUser) => !(user._id === currentUser._id)
+  );
+  // console.log(currentChat);
+
   const [onlineUsers, setOnlineUsers] = useState<User[]>([]);
   const [message, setMessage] = useState("");
   // const [loggedIn, setLoggedIn] = useState(false);
   const [chatHistory, setChatHistory] = useState<Message[]>([]);
 
   useEffect(() => {
-    //   socket.on("welcome", (welcomeMessage) => {
-    //     console.log(welcomeMessage);
-    //   });
-    //   // socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
-    //   socket.on("newMessage", newMessage => {
-    //     setChatHistory((allMessages) => [...allMessages, newMessage.message])
-    //   })
-  }, []);
+    socket.on("welcome", (welcomeMessage) => {
+      console.log(welcomeMessage);
+    });
+    socket.emit("joinRoom", "room"); // UNIQUE ROOM NAME FOR EACH USER
+    socket.on("newMessage", (newMessage) => {
+      setChatHistory((allMessages) => [...allMessages, newMessage.message]);
+    });
+  }, [currentChat]);
 
-  // const sendMessage = () => {
-  //   const newMessage = {
-  //     sender: "username",
-  //     text: message,
-  //     createdAt: new Date().toLocaleString("en-US"),
-  //chatId: "643eb5d96f5a618a067379d7",
-  //   };
-  //   socket.emit("sendMessage", { message: newMessage });
-  //   setChatHistory([...chatHistory, newMessage]);
-  // };
+  const sendMessage = () => {
+    const newMessage = {
+      sender: currentUser,
+      text: message,
+      createdAt: new Date().toLocaleString("en-US"),
+      chatId: "643eb5d96f5a618a067379d7",
+    };
+    socket.emit("sendMessage", { message: newMessage });
+    setChatHistory([...chatHistory, newMessage]);
+  };
 
   return (
     <Col className="col-12 col-md-9 p-0 mt-3 border-left border-secondary d-flex flex-column">
       <div className="d-flex top-bars align-items-center">
         <div className="flex-grow-1 d-flex align-items-center">
-          <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png"
-            alt="trollface"
-            className="top-images my-2 mx-3"
-          />
-          <p className="mb-0" style={{ color: "#d9dee0" }}>
-            Pochita
-          </p>
+          {otherUser && (
+            <>
+              {" "}
+              <img
+                src={otherUser[0]?.avatar}
+                alt="User's avatar"
+                className="top-images my-2 mx-3"
+              />
+              <p className="mb-0" style={{ color: "#d9dee0" }}>
+                {otherUser[0]?.username}
+              </p>
+            </>
+          )}
         </div>
+
         <div className="d-flex">
           <AiOutlineSearch className="top-icons m-1 mx-3" />
           <SlOptionsVertical className="top-icons m-1 mx-3" />
@@ -75,8 +90,8 @@ const ChatSection = () => {
           className="message-container"
           onSubmit={(e) => {
             e.preventDefault();
-            // sendMessage();
-            // setMessage("")
+            sendMessage();
+            setMessage("");
           }}
         >
           <FormControl

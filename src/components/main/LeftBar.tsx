@@ -17,10 +17,11 @@ interface IProps {
 
 const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
+  let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let chats = useAppSelector((state) => state.chats.allChats);
 
   useEffect(() => {
-    dispatch(getChats("643d6d724241c52f1fc63103"));
+    dispatch(getChats(currentUser._id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -32,8 +33,8 @@ const LeftBar = (props: IProps) => {
           className="flex-grow-1 pointer-cursor"
         >
           <img
-            src="https://upload.wikimedia.org/wikipedia/en/thumb/9/9a/Trollface_non-free.png/220px-Trollface_non-free.png"
-            alt="trollface"
+            src={currentUser.avatar}
+            alt="User's avatar"
             className="top-images my-2 mx-3"
           />
         </div>

@@ -82,10 +82,12 @@ export const createChat = (members: Object, currentUser: String) => {
   };
 };
 
-export const getChatHistory = () => {
+export const getChatHistory = (chatId: string) => {
   return async (dispatch: any) => {
     try {
-      const res = await fetch(`${process.env.REACT_APP_BE_URL}/chats`);
+      const res = await fetch(
+        `${process.env.REACT_APP_BE_URL}/chats/singleChat/${chatId}`
+      );
       if (res.ok) {
         const data = await res.json();
         dispatch({
