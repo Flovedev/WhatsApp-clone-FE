@@ -1,8 +1,10 @@
+import { current } from "@reduxjs/toolkit";
 import { IUser } from "../interfaces/IUser";
 
 export const SET_USER_INFO = "SET_USER_INFO";
 export const SET_CURRENT_USER = "SET_CURRENT_USER";
 export const GET_CHATS = "GET_CHATS";
+export const GET_CHAT_HISTORY = "GET_CHAT_HISTORY";
 
 export const setUserInfo = (user: IUser) => {
   return {
@@ -11,12 +13,20 @@ export const setUserInfo = (user: IUser) => {
   };
 };
 
+export const setCurrentUser = (currentUser: IUser) => {
+  return {
+    type: SET_CURRENT_USER,
+    payload: currentUser,
+  };
+};
+
 export const getUsers = () => {
   return async (dispatch: any) => {
     try {
       const res = await fetch(`${process.env.REACT_APP_BE_URL}/users`);
       if (res.ok) {
-        const data = res.json();
+        const data = await res.json();
+        console.log(data);
         dispatch({
           type: SET_USER_INFO,
           payload: data,
@@ -51,9 +61,42 @@ export const getChats = (userId: String) => {
   };
 };
 
-export const setCurrentUser = (currentUser: IUser) => {
-  return {
-    type: SET_CURRENT_USER,
-    payload: currentUser,
+export const createChat = (members: Object, currentUser: String) => {
+  return async (dispatch: any) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BE_URL}/chats`, {
+        method: "POST",
+        body: JSON.stringify(members),
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (res.ok) {
+        dispatch(getChats(currentUser));
+      } else {
+        console.log("Error creating a chat!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const getChatHistory = () => {
+  return async (dispatch: any) => {
+    try {
+      const res = await fetch(`${process.env.REACT_APP_BE_URL}/chats`);
+      if (res.ok) {
+        const data = await res.json();
+        dispatch({
+          type: GET_CHAT_HISTORY,
+          payload: data,
+        });
+      } else {
+        console.log("Error getting chat history!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 };

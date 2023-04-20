@@ -1,9 +1,8 @@
 import { Col, FormControl, InputGroup } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFilter } from "react-icons/bs";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import SingleUser from "./SingleUser";
-import { getUsers } from "../../redux/actions";
 import { useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
 
@@ -13,12 +12,7 @@ interface IProps {
 
 const UsersMenu = (props: IProps) => {
   const [animation, setAnimation] = useState(false);
-  let userList = useAppSelector((state: any) => state.users.userList);
-
-  useEffect(() => {
-    getUsers();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  let userList = useAppSelector((state: any) => state.users.userInfo);
 
   return (
     <>
@@ -150,11 +144,17 @@ const UsersMenu = (props: IProps) => {
           <div className="mt-5 mb-4 mx-4 contacts-text">
             CONTACTS ON WHATSAPP
           </div>
-          {userList.length > 0
-            ? userList.map((e: IUser, i: number) => {
-                return <SingleUser data={e} key={i} />;
-              })
-            : "You dont have friends :("}
+          {userList === undefined
+            ? "You dont have friends :("
+            : userList.map((e: IUser, i: number) => {
+                return (
+                  <SingleUser
+                    data={e}
+                    key={i}
+                    // hideUsers={props.showUsersMenu}
+                  />
+                );
+              })}
         </div>
       </Col>
     </>
