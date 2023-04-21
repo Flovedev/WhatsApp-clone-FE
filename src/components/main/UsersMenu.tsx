@@ -12,6 +12,7 @@ interface IProps {
 
 const UsersMenu = (props: IProps) => {
     const [animation, setAnimation] = useState(false);
+    const [query, setQuery] = useState("")
     let userList = useAppSelector((state: any) => state.users.userInfo);
 
     return (
@@ -76,6 +77,8 @@ const UsersMenu = (props: IProps) => {
                                 placeholder={animation ? "Search contacts" : ""}
                                 className="top-input top-search"
                                 onClick={() => setAnimation(false)}
+                                value={query}
+                                onChange={(e) => setQuery(e.target.value)}
                             />
                         </InputGroup>
                         <BsFilter className="top-icons top-filter m-1 mx-3" />
@@ -147,7 +150,7 @@ const UsersMenu = (props: IProps) => {
                     <div className="all-users-section">
                         {userList === undefined
                             ? <div className="m-3"> You don't have friends :( </div>
-                            : userList.map((e: IUser, i: number) => {
+                            : userList.filter((user: any) => user.username.toLowerCase().includes(query.toLowerCase())).map((e: IUser, i: number) => {
                                 return (
                                     <SingleUser
                                         data={e}

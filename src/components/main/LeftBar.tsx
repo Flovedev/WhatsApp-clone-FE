@@ -5,7 +5,7 @@ import { SlOptionsVertical } from "react-icons/sl";
 import { AiOutlineSearch } from "react-icons/ai";
 import { BsFilter } from "react-icons/bs";
 import SingleChat from "./SingleChat";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { getChats } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IChats } from "../../redux/interfaces/IChats";
@@ -19,6 +19,9 @@ const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let chats = useAppSelector((state) => state.chats.allChats);
+  console.log(chats[0])
+  const [query, setQuery] = useState("")
+
   useEffect(() => {
     dispatch(getChats(currentUser._id));
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -56,8 +59,10 @@ const LeftBar = (props: IProps) => {
             </InputGroup.Text>
           </InputGroup.Prepend>
           <FormControl
-            placeholder="Search for a chat or ///ask"
+            placeholder="Search for a chat"
             className="top-input top-search"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
           />
         </InputGroup>
         <BsFilter className="top-icons top-filter m-1 mx-3" />
@@ -65,9 +70,10 @@ const LeftBar = (props: IProps) => {
       <div className="single-chats-container">
         {chats.success === false
           ? <div className="m-3">Create a new chat to start</div>
-          : chats.map((e: IChats, i: number) => {
+          : chats.filter((chat: IChats) => chat.members.some((member: any) => member.username.toLowerCase().includes(query.toLowerCase()))).map((e: IChats, i: number) => {
             return <SingleChat key={i} data={e} />;
           })}
+
       </div>
     </Col>
   );
