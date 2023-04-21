@@ -38,7 +38,7 @@ const ProfileMenu = (props: IProps) => {
       });
       if (res.ok) {
         const updatedUser = await res.json();
-        console.log(updatedUser);
+        // console.log(updatedUser);
         dispatch(setCurrentUser(updatedUser.user));
       }
     } catch (error) {
@@ -51,7 +51,7 @@ const ProfileMenu = (props: IProps) => {
       username: newUsername,
       info: newInfo,
     };
-    console.log(updatedUser);
+    // console.log(updatedUser);
     try {
       let res = await fetch(`${process.env.REACT_APP_BE_URL}/users/me`, {
         method: "PUT",
@@ -63,7 +63,7 @@ const ProfileMenu = (props: IProps) => {
       });
       if (res.ok) {
         const response = await res.json();
-        console.log("response: ", response);
+        // console.log("response: ", response);
         dispatch(setCurrentUser(response));
         handleClose();
       }

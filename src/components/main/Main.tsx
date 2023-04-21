@@ -4,7 +4,11 @@ import { Container, Row } from "react-bootstrap";
 import UsersMenu from "./UsersMenu";
 import { useState, useEffect } from "react";
 import ProfileMenu from "./ProfileMenu";
-import { getUsers, setCurrentUser } from "../../redux/actions";
+import {
+  SET_LAST_MESSAGE,
+  getUsers,
+  setCurrentUser,
+} from "../../redux/actions";
 import { useAppDispatch } from "../../redux/hooks";
 import Cookies from "js-cookie";
 
@@ -25,7 +29,7 @@ const Main = () => {
       });
       if (res.ok) {
         let userInfoFromGoogle = await res.json();
-        console.log(userInfoFromGoogle);
+        // console.log(userInfoFromGoogle);
         dispatch(setCurrentUser(userInfoFromGoogle));
       }
     } catch (error) {
@@ -40,6 +44,7 @@ const Main = () => {
       getMeInfo();
     }
     dispatch(getUsers());
+    dispatch({ type: SET_LAST_MESSAGE, payload: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

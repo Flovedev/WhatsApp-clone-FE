@@ -63,11 +63,13 @@ const LeftBar = (props: IProps) => {
         <BsFilter className="top-icons top-filter m-1 mx-3" />
       </div>
       <div className="single-chats-container">
-        {chats.success === false
-          ? <div className="m-3">Create a new chat to start</div>
-          : chats.map((e: IChats, i: number) => {
+        {chats.success === false ? (
+          <div className="m-3">Create a new chat to start</div>
+        ) : (
+          chats.map((e: IChats, i: number) => {
             return <SingleChat key={i} data={e} />;
-          })}
+          })
+        )}
       </div>
     </Col>
   );

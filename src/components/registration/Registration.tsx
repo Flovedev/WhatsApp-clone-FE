@@ -31,7 +31,7 @@ const Registration = () => {
       });
       if (res.ok) {
         const newUser = await res.json();
-        console.log("New User: ", newUser);
+        // console.log("New User: ", newUser);
         localStorage.setItem("accessToken", newUser.accessToken);
         dispatch(setCurrentUser(newUser.user));
         navigate("/main");
@@ -121,7 +121,7 @@ const Registration = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                // onClick={() => {disabled={false}}}
+                  // onClick={() => {disabled={false}}}
                 ></GoogleButton>
               </a>
             </div>
