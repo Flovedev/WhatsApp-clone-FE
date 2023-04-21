@@ -9,7 +9,7 @@ const Registration = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
   let [userName, setUserName] = useState("");
-  let [userInfo, setUserInfo] = useState("");
+  let [userInfo, setUserInfo] = useState("I am using WhatsApp!");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -121,7 +121,7 @@ const Registration = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                  // onClick={() => {disabled={false}}}
+                // onClick={() => {disabled={false}}}
                 ></GoogleButton>
               </a>
             </div>
