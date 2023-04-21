@@ -52,7 +52,11 @@
 
 .single-chats,
 .single-user,
-.profile-info {
+.profile-info,
+.single-chats-container,
+.chat-message,
+.chat-message-user,
+.all-users-section {
   color: #d9dee0 !important;
 }
 

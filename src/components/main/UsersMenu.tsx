@@ -144,17 +144,19 @@ const UsersMenu = (props: IProps) => {
                     <div className="mt-5 mb-4 mx-4 contacts-text">
                         CONTACTS ON WHATSAPP
                     </div>
-                    {userList === undefined
-                        ? "You dont have friends :("
-                        : userList.map((e: IUser, i: number) => {
-                            return (
-                                <SingleUser
-                                    data={e}
-                                    key={i}
-                                    hideUsers={props.showUsersMenu}
-                                />
-                            );
-                        })}
+                    <div className="all-users-section">
+                        {userList === undefined
+                            ? <div className="m-3"> You don't have friends :( </div>
+                            : userList.map((e: IUser, i: number) => {
+                                return (
+                                    <SingleUser
+                                        data={e}
+                                        key={i}
+                                        hideUsers={props.showUsersMenu}
+                                    />
+                                );
+                            })}
+                    </div>
                 </div>
             </Col>
         </>

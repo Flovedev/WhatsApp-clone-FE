@@ -75,7 +75,7 @@ const ChatSection = () => {
           <SlOptionsVertical className="top-icons m-1 mx-3" />
         </div>
       </div>
-      <div className="messages-section flex-grow-1 d-flex flex-column">
+      <div className="messages-section flex-grow-1 d-flex flex-column py-2">
         <>
           {currentChat?.messages?.map((message: any, index: number) => (
             <SingleMessage data={message} key={index} />

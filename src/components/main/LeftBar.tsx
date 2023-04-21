@@ -64,7 +64,7 @@ const LeftBar = (props: IProps) => {
       </div>
       <div className="single-chats-container">
         {chats.success === false
-          ? "Create a new chat to start"
+          ? <div className="m-3">Create a new chat to start</div>
           : chats.map((e: IChats, i: number) => {
             return <SingleChat key={i} data={e} />;
           })}
