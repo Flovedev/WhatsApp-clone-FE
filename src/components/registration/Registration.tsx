@@ -9,7 +9,7 @@ const Registration = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
   let [userName, setUserName] = useState("");
-  let [userInfo, setUserInfo] = useState("");
+  let [userInfo, setUserInfo] = useState("Hey there! I am using WhatsApp.");
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();

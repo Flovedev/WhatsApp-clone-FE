@@ -27,7 +27,6 @@ const Login = () => {
       });
       if (res.ok) {
         const currentUser = await res.json();
-        console.log("current user: ", currentUser);
         localStorage.setItem("accessToken", currentUser.accessToken);
         dispatch(setCurrentUser(currentUser.user));
         navigate("/main");
