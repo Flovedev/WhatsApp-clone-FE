@@ -28,7 +28,7 @@ const SingleChat = (props: IProps) => {
     >
       <div className="d-flex align-items-center ml-3 my-2">
         <div className="d-flex align-items-center justify-content-center img-container">
-          <img src={notCurrentUser[0].avatar} alt="trollface" />
+          <img src={notCurrentUser[0]?.avatar} alt="trollface" />
         </div>
         <div className="d-flex flex-grow-1 ml-3 align-items-center">
           <div className="flex-grow-1 my-3">

@@ -35,7 +35,7 @@ const LeftBar = (props: IProps) => {
           className="flex-grow-1 pointer-cursor"
         >
           <img
-            src={currentUser.avatar}
+            src={currentUser?.avatar}
             alt="User's avatar"
             className="top-images my-2 mx-3"
           />
@@ -69,8 +69,8 @@ const LeftBar = (props: IProps) => {
         {chats.success === false
           ? "Create a new chat to start"
           : chats.map((e: IChats, i: number) => {
-              return <SingleChat key={i} data={e} />;
-            })}
+            return <SingleChat key={i} data={e} />;
+          })}
       </div>
     </Col>
   );
