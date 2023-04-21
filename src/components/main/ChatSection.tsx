@@ -1,11 +1,11 @@
-import { Col, FormControl, Form, ListGroup } from "react-bootstrap";
+/* eslint-disable react-hooks/exhaustive-deps */
+import { Col, FormControl, Form } from "react-bootstrap";
 import { AiOutlineSearch } from "react-icons/ai";
 import { SlOptionsVertical, SlEmotsmile } from "react-icons/sl";
 import { RiAttachment2 } from "react-icons/ri";
 import { BsFillMicFill } from "react-icons/bs";
 import { io } from "socket.io-client";
 import { useState, useEffect } from "react";
-import { Message, User } from "../../redux/types";
 import SingleMessage from "./SingleMessage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";

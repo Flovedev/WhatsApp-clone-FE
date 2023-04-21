@@ -1,13 +1,10 @@
-import { Container, Button, Form, Modal } from "react-bootstrap";
-import { useEffect, useState } from "react";
-// import { setUserInfo, SET_USER_INFO } from "../../redux/actions";
-import { useAppDispatch, useAppSelector } from "../../redux/hooks";
-import Registration from "../registration/Registration";
+import { Container, Button, Form } from "react-bootstrap";
+import { useState } from "react";
+import { useAppDispatch } from "../../redux/hooks";
 import GoogleButton from "react-google-button";
 import { setCurrentUser } from "../../redux/actions";
-import { redirect, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
-// import Example from "./SignInWithGoogle";
 
 const Login = () => {
   let [userEmail, setUserEmail] = useState("");
@@ -33,34 +30,13 @@ const Login = () => {
         const currentUser = await res.json();
         console.log("current user: ", currentUser);
         localStorage.setItem("accessToken", currentUser.accessToken);
-        dispatch(setCurrentUser(currentUser.user)); //saves user as "currentUser" into the store. We dispatch ACTIONS.
+        dispatch(setCurrentUser(currentUser.user));
         navigate("/main");
       }
     } catch (error) {
       console.log(error);
     }
   };
-
-  //local storage: localStorage.setItem("myCat", "Tom"); const cat = localStorage.getItem("myCat"); localStorage.removeItem("myCat");
-
-  // const getUser = async () => {
-  //   try {
-  //     let response = await fetch(
-  //       `${process.env.REACT_APP_BE}/users/${id}`
-  //     );
-  //     if (response.ok) {
-  //       const data = await response.json();
-  //     } else {
-  //       console.log("Error")
-  //     }
-  //   } catch (error) {
-  //     console.log(error)
-  //   }
-  // };
-
-  // useEffect(() => {
-  //   getUser();
-  // }, [])
 
   return (
     <Container>
@@ -124,7 +100,7 @@ const Login = () => {
                   className="sign-in-w-google"
                   type="dark"
                   disabled={false}
-                  // onClick={() => {Example()}}
+                // onClick={() => {Example()}}
                 ></GoogleButton>
               </a>
               <a className="reg-to-wa" href="Registration">

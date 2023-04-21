@@ -19,9 +19,6 @@ const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let chats = useAppSelector((state) => state.chats.allChats);
-  let currentUserInfo = useAppSelector(
-    (state) => state.currentUser.currentUser
-  );
   useEffect(() => {
     dispatch(getChats(currentUser._id));
     // eslint-disable-next-line react-hooks/exhaustive-deps

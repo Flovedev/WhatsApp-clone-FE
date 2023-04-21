@@ -5,7 +5,6 @@ import { Form } from "react-bootstrap";
 import { setCurrentUser } from "../../redux/actions";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { useState } from "react";
-import { current } from "immer";
 
 interface IProps {
     showProfileMenu: React.Dispatch<React.SetStateAction<boolean>>;
