@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import SingleMessage from "./SingleMessage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
-import { SET_LAST_MESSAGE, SET_LIVE_CHAT } from "../../redux/actions";
+import { SET_LIVE_CHAT } from "../../redux/actions";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
@@ -17,7 +17,6 @@ const ChatSection = () => {
   let currentChat = useAppSelector((state) => state.currentChat.chat);
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let livechat = useAppSelector((state) => state.liveChat.liveChat);
-  let lastMessage = useAppSelector((state) => state.liveChat);
 
   let otherUser = currentChat?.members?.filter(
     (user: IUser) => !(user._id === currentUser._id)
@@ -36,11 +35,6 @@ const ChatSection = () => {
         type: SET_LIVE_CHAT,
         payload: newMessage.message,
       });
-      dispatch({
-        type: SET_LAST_MESSAGE,
-        payload: !lastMessage,
-      });
-      console.log(newMessage);
     });
   }, []);
 
