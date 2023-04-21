@@ -205,3 +205,28 @@ html[dir] ._2K09Y {
   color: white;
   border: none;
 }
+
+/* Change profile pic */
+.change-avatar-input {
+  display: inline-flex;
+  background-color: none;
+  flex-direction: row;
+  background-color: none;
+  border-radius: 20px;
+  max-width: 100%;
+  margin-left: 1.7rem;
+  
+}
+
+.input {
+  max-width: 40%;
+  background-color: none;
+}
+
+.change-avatar-input svg {
+  color: #dcede3;
+  font-size: 20px;
+  align-self: center;
+  margin-right: 0.7rem;
+}
+

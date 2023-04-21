@@ -1,5 +1,6 @@
 import { Button, Col, Modal } from "react-bootstrap";
 import { FiLogOut } from "react-icons/fi";
+import {MdOutlinePhotoCamera} from "react-icons/md";
 import { useNavigate } from "react-router";
 import { Form } from "react-bootstrap";
 import { setCurrentUser } from "../../redux/actions";
@@ -151,7 +152,9 @@ const ProfileMenu = (props: IProps) => {
             <img src={currentUserInfo?.avatar} alt="avatar" />
           </div>
         </div>
-        <input type="file" onChange={changeAvatar} />
+        <label className="change-avatar-input">  <MdOutlinePhotoCamera />
+        <input className="input" type="file" onChange={changeAvatar} />
+        </label>
         <div
           className="profile-info"
           onSubmit={(e) => {
@@ -218,7 +221,7 @@ const ProfileMenu = (props: IProps) => {
           </div>
           <div className="my-2">
             <button className="logoutButton" onClick={logout}>
-              Log out from this account. <FiLogOut />{" "}
+              Log out from this account. <FiLogOut />
             </button>
           </div>
         </div>
