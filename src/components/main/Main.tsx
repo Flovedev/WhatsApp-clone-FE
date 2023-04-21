@@ -16,6 +16,7 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const [showUsersMenu, setShowUsersMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const getMeInfo = async () => {
     try {
@@ -61,7 +62,7 @@ const Main = () => {
         {showProfileMenu && (
           <ProfileMenu showProfileMenu={setShowProfileMenu} />
         )}
-        <ChatSection />
+        {/* <ChatSection toggle={setToggle}/> */}
       </Row>
     </Container>
   );
