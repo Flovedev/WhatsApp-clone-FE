@@ -91,15 +91,6 @@ const Login = () => {
                   onChange={(e) => setUserPW(e.target.value)}
                 />
               </Form.Group>
-              <Form.Group controlId="formBasicPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Password"
-                  value={userPW}
-                  onChange={(e) => setUserPW(e.target.value)}
-                />
-              </Form.Group>
 
               <div className="btn-wrapper">
                 <Button className="login" onClick={userLogin}>
