@@ -19,8 +19,9 @@ const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let chats = useAppSelector((state) => state.chats.allChats);
-  console.log(chats[0])
   const [query, setQuery] = useState("")
+
+
 
   useEffect(() => {
     dispatch(getChats(currentUser._id));
@@ -70,9 +71,15 @@ const LeftBar = (props: IProps) => {
       <div className="single-chats-container">
         {chats.success === false
           ? <div className="m-3">Create a new chat to start</div>
-          : chats.filter((chat: IChats) => chat.members.some((member: any) => member.username.toLowerCase().includes(query.toLowerCase()))).map((e: IChats, i: number) => {
+          : chats.filter((chat: IChats) =>
+            chat.members.find((member: any) =>
+              member._id !== currentUser._id &&
+              member.username.toLowerCase().includes(query.toLowerCase())
+            )
+          ).map((e: IChats, i: number) => {
             return <SingleChat key={i} data={e} />;
           })}
+
 
       </div>
     </Col>
