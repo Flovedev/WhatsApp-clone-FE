@@ -32,7 +32,7 @@ const SingleChat = (props: IProps) => {
         </div>
         <div className="d-flex flex-grow-1 ml-3 align-items-center">
           <div className="flex-grow-1 my-3">
-            <p className="mb-0">{notCurrentUser[0].username}</p>
+            <p className="mb-0">{notCurrentUser[0]?.username}</p>
             <span>TODO</span>
           </div>
           <span className="mr-3">TODO</span>
