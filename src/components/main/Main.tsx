@@ -43,22 +43,27 @@ const Main = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+
   return (
-    <Container fluid className="main-page px-5 pb-3 d-flex">
-      <Row className="flex-grow-1">
-        {!showUsersMenu && !showProfileMenu && (
-          <LeftBar
-            showUsersMenu={setShowUsersMenu}
-            showProfileMenu={setShowProfileMenu}
-          />
-        )}
-        {showUsersMenu && <UsersMenu showUsersMenu={setShowUsersMenu} />}
-        {showProfileMenu && (
-          <ProfileMenu showProfileMenu={setShowProfileMenu} />
-        )}
-        <ChatSection />
-      </Row>
-    </Container>
+    <>
+      {localStorage.getItem("accessToken") ?
+        <Container fluid className="main-page px-5 pb-3 d-flex">
+          <Row className="flex-grow-1">
+            {!showUsersMenu && !showProfileMenu && (
+              <LeftBar
+                showUsersMenu={setShowUsersMenu}
+                showProfileMenu={setShowProfileMenu}
+              />
+            )}
+            {showUsersMenu && <UsersMenu showUsersMenu={setShowUsersMenu} />}
+            {showProfileMenu && (
+              <ProfileMenu showProfileMenu={setShowProfileMenu} />
+            )}
+            <ChatSection />
+          </Row>
+        </Container>
+        : window.location.replace('/')}
+    </>
   );
 };
 
