@@ -7,7 +7,9 @@ interface IProps {
 const SingleMessage = (props: IProps) => {
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let currentRoom = useAppSelector((state) => state.room.roomId);
-
+  // console.log("user", currentUser);
+  console.log("room", currentRoom);
+  console.log("props", props.data.chatId);
   return (
     <>
       {
