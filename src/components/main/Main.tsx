@@ -25,7 +25,6 @@ const Main = () => {
       });
       if (res.ok) {
         let userInfoFromGoogle = await res.json();
-        console.log(userInfoFromGoogle);
         dispatch(setCurrentUser(userInfoFromGoogle));
       }
     } catch (error) {
@@ -46,7 +45,7 @@ const Main = () => {
 
   return (
     <>
-      {localStorage.getItem("accessToken") ?
+      {localStorage.getItem("accessToken") || Cookies.get("accessToken") ?
         <Container fluid className="main-page px-5 pb-3 d-flex">
           <Row className="flex-grow-1">
             {!showUsersMenu && !showProfileMenu && (
