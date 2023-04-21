@@ -80,6 +80,7 @@ const Registration = () => {
                   placeholder="Set your username"
                   value={userName}
                   onChange={(e) => setUserName(e.target.value)}
+                  required={true}
                 />
               </Form.Group>
 
@@ -100,6 +101,7 @@ const Registration = () => {
                   placeholder="Enter email"
                   value={userEmail}
                   onChange={(e) => setUserEmail(e.target.value)}
+                  required={true}
                 />
               </Form.Group>
 
@@ -110,6 +112,7 @@ const Registration = () => {
                   placeholder="Set your password"
                   value={userPW}
                   onChange={(e) => setUserPW(e.target.value)}
+                  required={true}
                 />
               </Form.Group>
 
