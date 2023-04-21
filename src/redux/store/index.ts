@@ -6,6 +6,7 @@ import currentUserReducer from "../reducers/currentUserReducer";
 import chatReducer from "../reducers/chatReducer";
 import currentChatReducer from "../reducers/currentChat";
 import liveChatReducer from "../reducers/liveChatReducer";
+import roomReducer from "../reducers/roomReducer";
 
 const persistConfig = {
   storage: Storage,
@@ -18,6 +19,7 @@ const combinedReducer = combineReducers({
   chats: chatReducer,
   currentChat: currentChatReducer,
   liveChat: liveChatReducer,
+  room: roomReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, combinedReducer);

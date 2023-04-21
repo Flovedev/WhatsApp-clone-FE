@@ -19,9 +19,7 @@ const LeftBar = (props: IProps) => {
   const dispatch = useAppDispatch();
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let chats = useAppSelector((state) => state.chats.allChats);
-  const [query, setQuery] = useState("")
-
-
+  const [query, setQuery] = useState("");
 
   useEffect(() => {
     dispatch(getChats(currentUser._id));
@@ -69,18 +67,21 @@ const LeftBar = (props: IProps) => {
         <BsFilter className="top-icons top-filter m-1 mx-3" />
       </div>
       <div className="single-chats-container">
-        {chats.success === false
-          ? <div className="m-3">Create a new chat to start</div>
-          : chats.filter((chat: IChats) =>
-            chat.members.find((member: any) =>
-              member._id !== currentUser._id &&
-              member.username.toLowerCase().includes(query.toLowerCase())
+        {chats.success === false ? (
+          <div className="m-3">Create a new chat to start</div>
+        ) : (
+          chats
+            .filter((chat: IChats) =>
+              chat.members.find(
+                (member: any) =>
+                  member._id !== currentUser._id &&
+                  member.username.toLowerCase().includes(query.toLowerCase())
+              )
             )
-          ).map((e: IChats, i: number) => {
-            return <SingleChat key={i} data={e} />;
-          })}
-
-
+            .map((e: IChats, i: number) => {
+              return <SingleChat key={i} data={e} />;
+            })
+        )}
       </div>
     </Col>
   );

@@ -7,6 +7,8 @@ export const GET_CHAT_HISTORY = "GET_CHAT_HISTORY";
 export const CLEAR_CHAT_HISTORY = "CLEAR_CHAT_HISTORY";
 export const SET_LIVE_CHAT = "SET_LIVE_CHAT";
 export const CLEAN_LIVE_CHAT = "CLEAN_LIVE_CHAT";
+export const GET_ROOM_ID = "GET_ROOM_ID";
+export const SET_LAST_MESSAGE = "SET_LAST_MESSAGE";
 
 export const setUserInfo = (user: IUser) => {
   return {
@@ -28,6 +30,7 @@ export const getUsers = () => {
       const res = await fetch(`${process.env.REACT_APP_BE_URL}/users`);
       if (res.ok) {
         const data = await res.json();
+        // console.log(data);
         dispatch({
           type: SET_USER_INFO,
           payload: data,

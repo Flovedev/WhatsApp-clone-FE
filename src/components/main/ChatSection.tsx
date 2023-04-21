@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import SingleMessage from "./SingleMessage";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { IUser } from "../../redux/interfaces/IUser";
-import { SET_LIVE_CHAT } from "../../redux/actions";
+import { SET_LAST_MESSAGE, SET_LIVE_CHAT } from "../../redux/actions";
 
 const socket = io(process.env.REACT_APP_BE_URL!, { transports: ["websocket"] });
 
@@ -17,6 +17,8 @@ const ChatSection = () => {
   let currentChat = useAppSelector((state) => state.currentChat.chat);
   let currentUser = useAppSelector((state) => state.currentUser.currentUser);
   let livechat = useAppSelector((state) => state.liveChat.liveChat);
+  let lastMessage = useAppSelector((state) => state.liveChat);
+
   let otherUser = currentChat?.members?.filter(
     (user: IUser) => !(user._id === currentUser._id)
   );
@@ -26,14 +28,19 @@ const ChatSection = () => {
 
   useEffect(() => {
     socket.on("welcome", (welcomeMessage) => {
-      console.log(welcomeMessage);
+      // console.log(welcomeMessage);
     });
-    socket.emit("joinRoom", "room");
+    socket.emit("joinRoom", currentChat._id);
     socket.on("newMessage", (newMessage) => {
       dispatch({
         type: SET_LIVE_CHAT,
         payload: newMessage.message,
       });
+      dispatch({
+        type: SET_LAST_MESSAGE,
+        payload: !lastMessage,
+      });
+      console.log(newMessage);
     });
   }, []);
 
@@ -84,6 +91,7 @@ const ChatSection = () => {
           {livechat?.map((message: any, index: number) => (
             <SingleMessage data={message} key={index} />
           ))}
+          {/* {console.log("livechat", livechat)} */}
         </>
       </div>
       <div className="d-flex align-items-center py-2 px-2 top-bars">

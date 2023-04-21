@@ -4,7 +4,11 @@ import { Container, Row } from "react-bootstrap";
 import UsersMenu from "./UsersMenu";
 import { useState, useEffect } from "react";
 import ProfileMenu from "./ProfileMenu";
-import { getUsers, setCurrentUser } from "../../redux/actions";
+import {
+  SET_LAST_MESSAGE,
+  getUsers,
+  setCurrentUser,
+} from "../../redux/actions";
 import { useAppDispatch } from "../../redux/hooks";
 import Cookies from "js-cookie";
 
@@ -12,6 +16,7 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const [showUsersMenu, setShowUsersMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [toggle, setToggle] = useState(false);
 
   const getMeInfo = async () => {
     try {
@@ -39,13 +44,13 @@ const Main = () => {
       getMeInfo();
     }
     dispatch(getUsers());
+    dispatch({ type: SET_LAST_MESSAGE, payload: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-
   return (
     <>
-      {localStorage.getItem("accessToken") || Cookies.get("accessToken") ?
+      {localStorage.getItem("accessToken") || Cookies.get("accessToken") ? (
         <Container fluid className="main-page px-5 pb-3 d-flex">
           <Row className="flex-grow-1">
             {!showUsersMenu && !showProfileMenu && (
@@ -61,7 +66,9 @@ const Main = () => {
             <ChatSection />
           </Row>
         </Container>
-        : window.location.replace('/')}
+      ) : (
+        window.location.replace("/")
+      )}
     </>
   );
 };
