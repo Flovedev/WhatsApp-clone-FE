@@ -5,7 +5,6 @@ import GoogleButton from "react-google-button";
 import { setCurrentUser } from "../../redux/actions";
 import { useNavigate } from "react-router";
 
-
 const Login = () => {
   let [userEmail, setUserEmail] = useState("");
   let [userPW, setUserPW] = useState("");
@@ -83,6 +82,15 @@ const Login = () => {
                 />
               </Form.Group>
 
+              <Form.Group controlId="formBasicPassword">
+                <Form.Label>Password</Form.Label>
+                <Form.Control
+                  type="password"
+                  placeholder="Password"
+                  value={userPW}
+                  onChange={(e) => setUserPW(e.target.value)}
+                />
+              </Form.Group>
               <Form.Group controlId="formBasicPassword">
                 <Form.Label>Password</Form.Label>
                 <Form.Control
