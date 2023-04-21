@@ -16,7 +16,6 @@ const Main = () => {
   const dispatch = useAppDispatch();
   const [showUsersMenu, setShowUsersMenu] = useState(false);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
-  const [toggle, setToggle] = useState(false);
 
   const getMeInfo = async () => {
     try {
@@ -44,7 +43,6 @@ const Main = () => {
       getMeInfo();
     }
     dispatch(getUsers());
-    dispatch({ type: SET_LAST_MESSAGE, payload: true });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

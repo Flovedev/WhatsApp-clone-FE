@@ -33,20 +33,6 @@ const SingleChat = (props: IProps) => {
     dispatch({ type: CLEAN_LIVE_CHAT, payload: [] });
   };
 
-  // function getLastMessageById() {
-  //   return livechat.reduce((acc: any, message: any) => {
-  //     if (message.chatId === props.data._id) {
-  //       return (lastMessage = message);
-  //     }
-  //     return acc;
-  //   }, null);
-  // }
-
-  // useEffect(() => {
-  //   getLastMessageById();
-  //   // console.log("this", lastMessage);
-  // }, [livechat]);
-
   return (
     <div
       className="my-2 single-chats"
